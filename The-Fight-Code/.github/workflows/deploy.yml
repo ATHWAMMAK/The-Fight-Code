@@ -1,4 +1,4 @@
-       name: Deploy The Fight Code
+name: Deploy The Fight Code
 
 on:
   push:
