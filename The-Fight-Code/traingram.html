@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The Fight Code | Curated Training Regimens</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="../traingram.js" defer></script>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="gameplan.html">Customized Fighting Game Plans</a>
+        <a href="traingram.html" aria-current="page">Curated Training Regimens</a>
+        <a href="nutrition.html">Nutrition Plans</a>
+        <a href="recovery.html">Recovery Guides</a>
+    </nav>
+
+
+    <!-- PAGE HEADER -->
+
+    <header>
+
+        <h1>CURATED TRAINING PROGRAMS</h1>
+
+        <p>
+            Created with your goals, needs, and wants in mind. Catering
+            to every single problem area, the regimens done for you
+            will help you in evolving as a fighter, improving on your skills,
+            sharpening yourself in readiness for fights and staying ahead in
+            every facet of the fight game.
+        </p>
+
+    </header>
+
+
+    <main>
+
+        <!-- SECTION ONE: CLASSIFIED FIGHTER INFORMATION -->
+
+        <section id="fighter-information">
+
+            <h2>CLASSIFIED FIGHTER INFO</h2>
+
+            <p>
+                Every fighter has a different starting point.
+                Provide your information below so that THE FIGHT CODE
+                can understand your experience, discipline and objectives.
+            </p>
+
+
+            <form id="training-form">
+
+                <!-- TRAINING LEVEL -->
+
+                <div>
+                    <label for="level">Training Level:</label>
+
+                    <select id="level" name="level" required>
+                        <option value="">Select Your Level</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                        <option value="Professional">Professional</option>
+                    </select>
+                </div>
+
+
+                <!-- COMBAT SPORT -->
+
+                <div>
+                    <label for="combat-sport">Combat Sport:</label>
+
+                    <select id="combat-sport" name="combat_sport" required>
+                        <option value="">Select Your Combat Sport</option>
+                        <option value="Boxing">Boxing</option>
+                        <option value="Mixed Martial Arts">Mixed Martial Arts (MMA)</option>
+                        <option value="Kickboxing">Kickboxing</option>
+                        <option value="Muay Thai">Muay Thai</option>
+                        <option value="Wrestling">Wrestling</option>
+                        <option value="Brazilian Jiu-Jitsu">Brazilian Jiu-Jitsu</option>
+                    </select>
+                </div>
+
+
+                <!-- DESIGNATED GOALS -->
+
+                <div>
+                    <label for="designated-goal">Designated Goals:</label>
+
+                    <textarea
+                        id="designated-goal"
+                        name="designated_goal"
+                        rows="4"
+                        placeholder="Describe your training goals..."
+                        required
+                    ></textarea>
+                </div>
+
+
+                <!-- AVAILABLE TRAINING DAYS -->
+
+<div>
+    <label>Available Training Days:</label>
+
+    <fieldset id="training-days">
+
+        <label>
+            <input type="checkbox" name="training_days" value="Monday">
+            Monday
+        </label>
+
+        <label>
+            <input type="checkbox" name="training_days" value="Tuesday">
+            Tuesday
+        </label>
+
+        <label>
+            <input type="checkbox" name="training_days" value="Wednesday">
+            Wednesday
+        </label>
+
+        <label>
+            <input type="checkbox" name="training_days" value="Thursday">
+            Thursday
+        </label>
+
+        <label>
+            <input type="checkbox" name="training_days" value="Friday">
+            Friday
+        </label>
+
+        <label>
+            <input type="checkbox" name="training_days" value="Saturday">
+            Saturday
+        </label>
+
+        <label>
+            <input type="checkbox" name="training_days" value="Sunday">
+            Sunday
+        </label>
+
+    </fieldset>
+</div>
+
+
+<!-- SESSION DURATION -->
+
+<div>
+    <label for="session-duration">Available Time Per Session:</label>
+
+    <select id="session-duration" name="session_duration" required>
+        <option value="">Select Session Duration</option>
+        <option value="30">30 minutes</option>
+        <option value="45">45 minutes</option>
+        <option value="60">1 hour</option>
+        <option value="90">1 hour 30 minutes</option>
+        <option value="120">2 hours</option>
+    </select>
+</div>
+
+                
+
+
+                <!-- SAVE FIGHTER INFORMATION -->
+
+                <button type="submit">
+                    Save Fighter Information
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- SECTION TWO: TRAINING REGIMEN GENERATOR -->
+
+        <section id="training-regimen-generator">
+
+            <h2>PERSONALIZED TRAINING REGIMEN GENERATOR</h2>
+
+            <p>
+                Your information is the foundation.
+                Your training regimen is the blueprint.
+                Generate a programme based on your selected combat sport,
+                experience level and designated goals.
+            </p>
+
+
+            <button type="button" id="generate-training-btn">
+                Generate Training Regimen
+            </button>
+
+
+            <!-- GENERATED TRAINING RESULTS -->
+
+            <div id="training-results">
+
+                <h3>YOUR PERSONALIZED TRAINING PROGRAM</h3>
+
+                <div id="training-output">
+
+                    <p>
+                        Your personalized training regimen
+                        will appear here once generated.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h4>
+            MADE BY FIGHTERS, MADE FOR FIGHTERS, INHABITED BY FIGHTERS
+        </h4>
+
+        <p>
+            &copy; 2026 The Fight Code, all rights reserved
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

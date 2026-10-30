@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The Fight Code | Customized Fighting Game Plans</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="../gameplan.js" defer></script>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="gameplan.html" aria-current="page">Customized Fighting Game Plans</a>
+        <a href="traingram.html">Curated Training Regimens</a>
+        <a href="nutrition.html">Nutrition Plans</a>
+        <a href="recovery.html">Recovery Guides</a>
+    </nav>
+
+    <header>
+        <h1>CUSTOMIZED FIGHTING GAME PLANS</h1>
+
+        <p>
+            This is where the fights are strategized into victory.
+            Every detail provided is designed to return a well-made,
+            detail-oriented and meticulously prepared game-plan that
+            will help you prepare for the fight that awaits you.
+            On top of regular drills that your coach will put you
+            through in training, this will be an additional tool
+            for your preparation.
+        </p>
+    </header>
+
+    <main>
+
+        <!-- OPPONENT PROFILE -->
+
+        <section>
+
+            <h2>OPPONENT'S DETAILS</h2>
+
+            <form id="opponent-form">
+
+                <div>
+                    <label for="opponent-name">Name:</label>
+                    <input
+                        type="text"
+                        id="opponent-name"
+                        name="opponent_name"
+                    >
+                </div>
+
+                <div>
+                    <label for="opponent-combat-sport">Combat Sport:</label>
+
+                    <select
+                        id="opponent-combat-sport"
+                        name="opponent_combat_sport"
+                        required
+                    >
+                        <option value="">Select Combat Sport</option>
+                        <option value="Boxing">Boxing</option>
+                        <option value="MMA">Mixed Martial Arts (MMA)</option>
+                        <option value="Kickboxing">Kickboxing</option>
+                        <option value="Muay Thai">Muay Thai</option>
+                        <option value="Wrestling">Wrestling</option>
+                        <option value="Brazilian Jiu-Jitsu">Brazilian Jiu-Jitsu</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="opponent-fighter-type">Fighter Type:</label>
+                    <input
+                        type="text"
+                        id="opponent-fighter-type"
+                        name="opponent_fighter_type"
+                        placeholder="e.g. Counter striker, pressure fighter..."
+                    >
+                </div>
+
+                <div>
+                    <label for="opponent-fighter-stance">Fighter Stance:</label>
+                    <input
+                        type="text"
+                        id="opponent-fighter-stance"
+                        name="opponent_fighter_stance"
+                        placeholder="e.g. Orthodox, southpaw..."
+                    >
+                </div>
+
+                <div>
+                    <label for="opponent-fighter-tendencies">Fighter Tendencies:</label>
+                    <textarea
+                        id="opponent-fighter-tendencies"
+                        name="opponent_fighter_tendencies"
+                        rows="3"
+                        placeholder="Describe observed fighting habits..."
+                    ></textarea>
+                </div>
+
+                <div>
+                    <label for="opponent-fighter-strengths">Fighter Strengths:</label>
+                    <textarea
+                        id="opponent-fighter-strengths"
+                        name="opponent_fighter_strengths"
+                        rows="3"
+                        placeholder="Describe the opponent's strengths..."
+                    ></textarea>
+                </div>
+
+                <div>
+                    <label for="opponent-fighter-weaknesses">Fighter Weaknesses:</label>
+                    <textarea
+                        id="opponent-fighter-weaknesses"
+                        name="opponent_fighter_weaknesses"
+                        rows="3"
+                        placeholder="Describe observed technical or tactical weaknesses..."
+                    ></textarea>
+                </div>
+
+                <!-- SPORT-SPECIFIC OPPONENT ASSESSMENT -->
+
+                <fieldset>
+                    <legend>Sport-Specific Opponent Assessment</legend>
+
+                    <p>
+                        Additional assessment questions will appear here
+                        according to the selected combat sport.
+                    </p>
+
+                    <div
+                        id="opponent-sport-assessment"
+                        aria-live="polite"
+                    >
+                    </div>
+                </fieldset>
+
+                <!-- OPPONENT FOOTAGE -->
+
+                <fieldset>
+
+                    <legend>Fighter Footage</legend>
+
+                    <div id="opponent-footage-links-container">
+
+                        <div class="footage-input-group">
+
+                            <label for="opponent-footage-1">Video URL:</label>
+
+                            <input
+                                type="url"
+                                id="opponent-footage-1"
+                                name="opponent_footage[]"
+                                placeholder="https://youtube.com/watch?v=..."
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <button type="button" id="add-opponent-footage-btn">
+                        + Add Another Link
+                    </button>
+
+                </fieldset>
+
+                <button type="submit">Save Details</button>
+
+            </form>
+
+        </section>
+
+
+        <!-- YOUR FIGHTER PROFILE -->
+
+        <section>
+
+            <h2>YOUR DETAILS</h2>
+
+            <form id="your-details-form">
+
+                <div>
+                    <label for="your-name">Name:</label>
+                    <input
+                        type="text"
+                        id="your-name"
+                        name="your_name"
+                    >
+                </div>
+
+                <div>
+                    <label for="your-combat-sport">Combat Sport:</label>
+
+                    <select
+                        id="your-combat-sport"
+                        name="your_combat_sport"
+                        required
+                    >
+                        <option value="">Select Combat Sport</option>
+                        <option value="Boxing">Boxing</option>
+                        <option value="MMA">Mixed Martial Arts (MMA)</option>
+                        <option value="Kickboxing">Kickboxing</option>
+                        <option value="Muay Thai">Muay Thai</option>
+                        <option value="Wrestling">Wrestling</option>
+                        <option value="Brazilian Jiu-Jitsu">Brazilian Jiu-Jitsu</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="your-fighter-type">Fighter Type:</label>
+                    <input
+                        type="text"
+                        id="your-fighter-type"
+                        name="your_fighter_type"
+                        placeholder="Describe your fighting style..."
+                    >
+                </div>
+
+                <div>
+                    <label for="your-fighter-stance">Fighter Stance:</label>
+                    <input
+                        type="text"
+                        id="your-fighter-stance"
+                        name="your_fighter_stance"
+                        placeholder="e.g. Orthodox, southpaw..."
+                    >
+                </div>
+
+                <div>
+                    <label for="your-fighter-tendencies">Fighter Tendencies:</label>
+                    <textarea
+                        id="your-fighter-tendencies"
+                        name="your_fighter_tendencies"
+                        rows="3"
+                        placeholder="Describe your usual fighting habits..."
+                    ></textarea>
+                </div>
+
+                <div>
+                    <label for="your-fighter-strengths">Fighter Strengths:</label>
+                    <textarea
+                        id="your-fighter-strengths"
+                        name="your_fighter_strengths"
+                        rows="3"
+                        placeholder="Describe your technical and physical strengths..."
+                    ></textarea>
+                </div>
+
+                <div>
+                    <label for="your-fighter-weaknesses">Fighter Weaknesses:</label>
+                    <textarea
+                        id="your-fighter-weaknesses"
+                        name="your_fighter_weaknesses"
+                        rows="3"
+                        placeholder="Describe areas you want to improve..."
+                    ></textarea>
+                </div>
+
+                <!-- SPORT-SPECIFIC ATHLETE ASSESSMENT -->
+
+                <fieldset>
+                    <legend>Sport-Specific Athlete Assessment</legend>
+
+                    <p>
+                        Additional assessment questions will appear here
+                        according to your selected combat sport.
+                    </p>
+
+                    <div
+                        id="your-sport-assessment"
+                        aria-live="polite"
+                    >
+                    </div>
+                </fieldset>
+
+                <!-- YOUR FIGHTER FOOTAGE -->
+
+                <fieldset>
+
+                    <legend>Fighter Footage</legend>
+
+                    <div id="your-footage-links-container">
+
+                        <div class="footage-input-group">
+
+                            <label for="your-footage-1">Video URL:</label>
+
+                            <input
+                                type="url"
+                                id="your-footage-1"
+                                name="your_footage[]"
+                                placeholder="https://youtube.com/watch?v=..."
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <button type="button" id="add-your-footage-btn">
+                        + Add Another Link
+                    </button>
+
+                </fieldset>
+
+                <button type="submit">Save Details</button>
+
+            </form>
+
+        </section>
+
+
+        <!-- GAME PLAN RESULTS -->
+
+        <section id="gameplan-results">
+
+            <h2>YOUR CUSTOMIZED GAME PLAN</h2>
+
+            <div id="gameplan-output">
+
+                <p>Your customized game plan will appear here.</p>
+
+            </div>
+
+            <button type="button" id="generate-gameplan-btn">
+                Generate Game Plan
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <h4>MADE BY FIGHTERS, MADE FOR FIGHTERS, INHABITED BY FIGHTERS</h4>
+
+        <p>&copy; 2026 The Fight Code, all rights reserved</p>
+
+    </footer>
+
+</body>
+
+</html>
