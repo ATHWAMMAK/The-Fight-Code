@@ -9,64 +9,123 @@
 </head>
 <body>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="gameplan.html">Customized Fighting Game Plans</a>
-        <a href="traingram.html">Curated Training Regimens</a>
-        <a href="nutrition.html">Nutrition Plans</a>
-        <a href="recovery.html" aria-current="page">Recovery Guides</a>
-    </nav>
+<nav>
+    <a href="index.html">Home</a>
+    <a href="gameplan.html">Customized Fighting Game Plans</a>
+    <a href="traingram.html">Curated Training Regimens</a>
+    <a href="nutrition.html">Nutrition Plans</a>
+    <a href="recovery.html" aria-current="page">Recovery Guides</a>
+</nav>
 
-    <header>
-        <h1>RECOVERY GUIDES</h1>
+<header>
+    <h1>RECOVERY GUIDES</h1>
+    <p>
+        Recovery is an essential part of every fighter's development.
+        Proper rest, sleep, mobility and sensible training management
+        help support performance and long-term athletic development.
+    </p>
+</header>
+
+<main>
+
+    <section id="recovery-information">
+        <h2>CLASSIFIED FIGHTER DETAILS</h2>
+
+        <form id="recovery-form">
+
+            <div>
+                <label for="fighter-level">Training Level:</label>
+                <select id="fighter-level" name="level" required>
+                    <option value="">Select training level</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                    <option value="Professional">Professional</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="combat-sport">Combat Sport:</label>
+                <select id="combat-sport" name="combat_sport" required>
+                    <option value="">Select combat sport</option>
+                    <option value="Boxing">Boxing</option>
+                    <option value="Mixed Martial Arts">Mixed Martial Arts (MMA)</option>
+                    <option value="Kickboxing">Kickboxing</option>
+                    <option value="Muay Thai">Muay Thai</option>
+                    <option value="Wrestling">Wrestling</option>
+                    <option value="Brazilian Jiu-Jitsu">Brazilian Jiu-Jitsu</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="physical-condition">Current Recovery Status:</label>
+                <textarea id="physical-condition" name="physical_condition"
+                    rows="3" placeholder="Describe your general training recovery and energy levels..."></textarea>
+            </div>
+
+            <div>
+                <label for="existing-injuries">Injuries or Physical Limitations:</label>
+                <textarea id="existing-injuries" name="existing_injuries"
+                    rows="3" placeholder="Optional: mention any known injuries or limitations relevant to training..."></textarea>
+                <small>Do not use this form for diagnosis. Seek qualified medical advice for injuries or persistent symptoms.</small>
+            </div>
+
+            <div>
+                <label for="sleep-hours">Average Sleep Per Night (Hours):</label>
+                <input type="number" id="sleep-hours" name="sleep_hours"
+                    min="0" max="24" step="0.5" placeholder="E.g. 8">
+            </div>
+
+            <div>
+                <label for="fatigue-level">Perceived Fatigue:</label>
+                <select id="fatigue-level" name="fatigue_level">
+                    <option value="">Select fatigue level</option>
+                    <option value="Low">Low</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="schedule">Training and Recovery Schedule:</label>
+                <textarea id="schedule" name="schedule" rows="4"
+                    placeholder="Describe your training days, rest days and recovery routine..."></textarea>
+            </div>
+
+            <div>
+                <label for="designated-goals">Recovery Goals:</label>
+                <textarea id="designated-goals" name="designated_goals"
+                    rows="3" placeholder="E.g. improve sleep consistency, manage training fatigue, improve mobility..."></textarea>
+            </div>
+
+            <button type="submit">Save Recovery Details</button>
+
+        </form>
+    </section>
+
+    <section id="recovery-guide-generator">
+        <h2>PERSONALIZED RECOVERY GUIDE GENERATOR</h2>
+
         <p>
-            Very key problems associated with fighters like Low testosterone,
-            CTE, minor or major injuries and post fighting and training fatigue
-            are easily preventable or even manageable in the case of fatigue
-            as it is normal. This is all by the way of proper recovery guides
-            built to help in the recharging process.
+            Generate a preliminary recovery guide based on your
+            training profile, recovery habits and stated goals.
         </p>
-    </header>
 
-    <main>
-        <section>
-            <h2>CLASSIFIED DETAILS</h2>
+        <button type="button" id="generate-recovery-btn">
+            Generate Recovery Guide
+        </button>
 
-            <form id="recovery-form">
-                <div>
-                    <label for="physical-condition">Physical condition:</label>
-                    <textarea id="physical-condition" name="physical_condition" rows="3" placeholder="Enter physical condition details..."></textarea>
-                </div>
+        <div id="recovery-results">
+            <div id="recovery-output"></div>
+        </div>
+    </section>
 
-                <div>
-                    <label for="existing-injuries">Existing injuries:</label>
-                    <textarea id="existing-injuries" name="existing_injuries" rows="3" placeholder="List any existing injuries..."></textarea>
-                </div>
+</main>
 
-                <div>
-                    <label for="general-health">General health:</label>
-                    <textarea id="general-health" name="general_health" rows="3" placeholder="Enter general health overview..."></textarea>
-                </div>
-
-                <div>
-                    <label for="schedule">Schedule:</label>
-                    <textarea id="schedule" name="schedule" rows="4" placeholder="Enter recovery schedule..."></textarea>
-                </div>
-
-                <div>
-                    <label for="designated-goals">Designated Goals:</label>
-                    <textarea id="designated-goals" name="designated_goals" rows="3" placeholder="Enter recovery goals..."></textarea>
-                </div>
-
-                <button type="submit">Save Recovery Details</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <h4>MADE BY FIGHTERS, MADE FOR FIGHTERS, INHABITED BY FIGHTERS</h4>
-        <p>&copy; 2026 The Fight Code, all rights reserved</p>
-    </footer>
+<footer>
+    <h4>MADE BY FIGHTERS, MADE FOR FIGHTERS, INHABITED BY FIGHTERS</h4>
+    <p>&copy; 2026 The Fight Code, all rights reserved</p>
+</footer>
 
 </body>
 </html>
