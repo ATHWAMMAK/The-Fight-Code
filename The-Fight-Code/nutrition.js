@@ -1,34 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     console.log("THE FIGHT CODE: Intelligent Nutrition Engine Loaded!");
 
     // ==========================================
-    // 1. STORAGE HELPERS
+    // 1. SELECT HTML ELEMENTS
     // ==========================================
 
-    function getSavedData(key) {
-        try {
-            const data = localStorage.getItem(key);
-            return data ? JSON.parse(data) : null;
-        } catch (error) {
-            console.error("Could not retrieve saved data:", error);
-            return null;
-        }
+    const nutritionForm = document.getElementById("nutrition-form");
+    const generateButton = document.getElementById("generate-nutrition-btn");
+    const nutritionOutput = document.getElementById("nutrition-output");
+
+    if (!nutritionForm || !generateButton || !nutritionOutput) {
+        console.error("Nutrition module: required HTML elements are missing.");
+        return;
     }
 
-    function saveData(key, data) {
-        try {
-            localStorage.setItem(key, JSON.stringify(data));
-            return true;
-        } catch (error) {
-            console.error("Could not save data:", error);
-            alert("Your information could not be saved. Check your browser storage.");
-            return false;
-        }
-    }
+    // Temporary in-memory storage
+    let savedNutritionDetails = null;
 
     // ==========================================
-    // 2. NUTRITION DATABASE
+    // 2. SPORT-SPECIFIC NUTRITION DATABASE
     // ==========================================
 
     const sportNutrition = {
@@ -42,11 +32,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Whole grains such as oats, rice and wholemeal bread.",
                 "Protein sources such as eggs, beans, fish and lean meat.",
                 "Fruit and vegetables for dietary variety.",
-                "Suitable sources of healthy fats such as nuts and seeds."
+                "Suitable sources of healthy fats."
+            ],
+            mealTiming: [
+                "Maintain regular meals throughout the day.",
+                "Allow time to eat and digest before demanding boxing sessions.",
+                "Include a balanced meal or snack after training."
+            ],
+            hydration: [
+                "Drink fluids regularly throughout the day.",
+                "Pay attention to fluid intake during demanding sessions.",
+                "Replace fluids after training according to individual needs."
             ]
         },
 
-        "Mixed Martial Arts": {
+        "MMA": {
             focus: [
                 "Support the varied demands of striking, grappling and conditioning.",
                 "Maintain consistent meals around mixed training sessions.",
@@ -56,7 +56,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Rice, potatoes, oats and other carbohydrate sources.",
                 "Eggs, fish, beans, poultry and other protein sources.",
                 "Fruit and vegetables.",
-                "Nuts, seeds and other sources of healthy fats."
+                "Suitable sources of healthy fats."
+            ],
+            mealTiming: [
+                "Plan regular meals around striking and grappling sessions.",
+                "Allow appropriate digestion time before intense training.",
+                "Include balanced food after demanding sessions."
+            ],
+            hydration: [
+                "Maintain consistent fluid intake throughout the day.",
+                "Consider the demands of longer or multiple training sessions.",
+                "Avoid using dehydration as a method of making weight."
             ]
         },
 
@@ -70,7 +80,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Oats, rice, potatoes and whole grains.",
                 "Eggs, fish, beans and lean protein sources.",
                 "Fruit and vegetables.",
-                "Nuts, seeds and other balanced fat sources."
+                "Suitable sources of healthy fats."
+            ],
+            mealTiming: [
+                "Maintain regular meals to support training consistency.",
+                "Plan suitable meals and snacks around demanding sessions.",
+                "Include balanced food to support recovery."
+            ],
+            hydration: [
+                "Drink regularly before and after training.",
+                "Pay attention to fluid loss during demanding sessions.",
+                "Avoid deliberate fluid restriction."
             ]
         },
 
@@ -84,7 +104,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Rice, oats, potatoes and other carbohydrate sources.",
                 "Fish, eggs, beans and poultry.",
                 "Fruit and vegetables.",
-                "Nuts, seeds and other sources of healthy fats."
+                "Suitable sources of healthy fats."
+            ],
+            mealTiming: [
+                "Keep meals consistent across training days.",
+                "Allow appropriate digestion time before clinch and conditioning sessions.",
+                "Eat balanced meals after training."
+            ],
+            hydration: [
+                "Maintain regular fluid intake.",
+                "Pay particular attention to fluid loss during demanding sessions.",
+                "Avoid dehydration-based weight management."
             ]
         },
 
@@ -99,6 +129,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Eggs, fish, beans and lean meat.",
                 "Fruit and vegetables.",
                 "Dairy or suitable alternatives, nuts and seeds."
+            ],
+            mealTiming: [
+                "Maintain a consistent eating routine during training periods.",
+                "Plan food around demanding wrestling sessions.",
+                "Avoid skipping meals to force rapid weight changes."
+            ],
+            hydration: [
+                "Maintain normal hydration throughout the day.",
+                "Replace fluids lost through demanding exercise.",
+                "Never use dehydration or fluid restriction to make weight."
             ]
         },
 
@@ -112,22 +152,38 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Rice, oats, potatoes and whole grains.",
                 "Eggs, fish, beans and poultry.",
                 "Fruit and vegetables.",
-                "Nuts, seeds and other healthy fat sources."
+                "Suitable sources of healthy fats."
+            ],
+            mealTiming: [
+                "Plan meals around longer rolling and drilling sessions.",
+                "Allow sufficient digestion time before training.",
+                "Maintain consistent meals on recovery days."
+            ],
+            hydration: [
+                "Drink fluids regularly throughout the day.",
+                "Pay attention to fluid loss during longer sessions.",
+                "Replace fluids after training."
             ]
         }
     };
 
+    const supportedLevels = [
+        "Beginner", "Intermediate", "Advanced", "Professional"
+    ];
+
+    const supportedSports = Object.keys(sportNutrition);
+
     // ==========================================
-    // 3. GOAL ANALYSIS
+    // 3. NUTRITION GOAL ANALYSIS
     // ==========================================
 
     function analyseNutritionGoals(goalText) {
         const goal = goalText.toLowerCase();
         const recommendations = [];
 
-        if (/energy|endurance|stamina|performance|conditioning/.test(goal)) {
+        if (/energy|endurance|stamina|performance|conditioning|cardio/.test(goal)) {
             recommendations.push(
-                "Prioritize consistent meals and adequate carbohydrate sources to support training energy."
+                "Prioritise consistent meals and suitable carbohydrate sources to support training energy."
             );
         }
 
@@ -137,15 +193,27 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
 
+        if (/power|explosive/.test(goal)) {
+            recommendations.push(
+                "Maintain balanced meals that support demanding physical activity and recovery."
+            );
+        }
+
         if (/maintain|maintenance|stable weight/.test(goal)) {
             recommendations.push(
                 "Focus on consistent eating habits, balanced meals and monitoring longer-term weight trends."
             );
         }
 
+        if (/weight|cut|lose|loss|gain/.test(goal)) {
+            recommendations.push(
+                "Discuss weight-management goals with a qualified sports dietitian. Avoid rapid weight changes and restrictive practices."
+            );
+        }
+
         if (/recovery|repair|recover/.test(goal)) {
             recommendations.push(
-                "Combine adequate food intake with varied protein sources, carbohydrate sources and regular meals."
+                "Combine adequate food intake with varied protein and carbohydrate sources and regular meals."
             );
         }
 
@@ -155,13 +223,31 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
 
+        if (/hydration|water|fluid/.test(goal)) {
+            recommendations.push(
+                "Maintain regular fluid intake and adjust appropriately for training conditions and individual needs."
+            );
+        }
+
+        if (/meal|routine|consistency|schedule/.test(goal)) {
+            recommendations.push(
+                "Develop a consistent meal routine that fits your daily schedule and training sessions."
+            );
+        }
+
+        if (/vitamin|mineral|micronutrient/.test(goal)) {
+            recommendations.push(
+                "Include a variety of fruit, vegetables and other nutrient-rich foods."
+            );
+        }
+
         if (recommendations.length === 0) {
             recommendations.push(
                 "Build a consistent eating routine that supports training, recovery and general wellbeing."
             );
         }
 
-        return recommendations;
+        return [...new Set(recommendations)];
     }
 
     // ==========================================
@@ -170,13 +256,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getLevelGuidance(level) {
         const guidance = {
-            "Beginner": "Build consistent eating habits and learn how nutrition supports regular training.",
+            "Beginner":
+                "Build consistent eating habits and learn how nutrition supports regular training.",
 
-            "Intermediate": "Pay closer attention to meal consistency, training demands and recovery habits.",
+            "Intermediate":
+                "Pay closer attention to meal consistency, training demands and recovery habits.",
 
-            "Advanced": "Coordinate nutrition habits with changes in training volume and competition preparation.",
+            "Advanced":
+                "Coordinate nutrition habits with changes in training volume and competition preparation.",
 
-            "Professional": "Consider working with a qualified sports dietitian to develop an individualized performance nutrition strategy."
+            "Professional":
+                "Consider working with a qualified sports dietitian to develop an individualised performance nutrition strategy."
         };
 
         return guidance[level] || "Focus on consistent, balanced nutrition habits.";
@@ -188,8 +278,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function collectNutritionDetails() {
         return {
-            level: document.getElementById("fighter-level").value,
-            combatSport: document.getElementById("combat-sport").value,
+            level: document.getElementById("fighter-level").value.trim(),
+            combatSport: document.getElementById("combat-sport").value.trim(),
             schedule: document.getElementById("schedule").value.trim(),
             designatedGoals: document.getElementById("designated-goals").value.trim(),
             weight: document.getElementById("weight").value,
@@ -202,66 +292,124 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ==========================================
-    // 6. RESTORE SAVED INFORMATION
+    // 6. PERSONALISE FOOD RECOMMENDATIONS
     // ==========================================
 
-    function restoreNutritionDetails() {
-        const saved = getSavedData("nutritionDetails");
+    function getAdjustedFoodRecommendations(sport, details) {
+        const preferences =
+            (details.dietaryPreferences + " " + details.foodRestrictions)
+                .toLowerCase();
 
-        if (!saved) return;
+        let foods = sport.foods.slice();
 
-        document.getElementById("fighter-level").value = saved.level || "";
-        document.getElementById("combat-sport").value = saved.combatSport || "";
-        document.getElementById("schedule").value = saved.schedule || "";
-        document.getElementById("designated-goals").value = saved.designatedGoals || "";
-        document.getElementById("weight").value = saved.weight || "";
-        document.getElementById("weight-unit").value = saved.weightUnit || "kg";
-        document.getElementById("required-weight").value = saved.requiredWeight || "";
-        document.getElementById("dietary-preferences").value = saved.dietaryPreferences || "";
-        document.getElementById("food-restrictions").value = saved.foodRestrictions || "";
+        const vegan = /vegan/.test(preferences);
+        const vegetarian = vegan || /vegetarian/.test(preferences);
+        const dairyFree = /dairy.free|lactose.free|lactose intolerant/.test(preferences);
+        const glutenFree = /gluten.free|coeliac|celiac/.test(preferences);
+        const nutFree = /nut.free|nut allergy|peanut allergy|tree nut/.test(preferences);
+        const fishFree = /fish allergy|seafood allergy|fish.free|seafood.free/.test(preferences);
+        const eggFree = /egg allergy|egg.free/.test(preferences);
 
-        console.log("Nutrition details restored.");
+        if (vegetarian) {
+            foods = foods.filter(function (food) {
+                return !/fish|poultry|lean meat/.test(food);
+            });
+        }
+
+        if (vegan) {
+            foods = foods.map(function (food) {
+                if (/eggs|beans|fish|poultry|lean meat/.test(food)) {
+                    return "Plant-based protein sources such as beans, lentils, chickpeas and tofu.";
+                }
+                return food;
+            });
+
+            foods = foods.filter(function (food) {
+                return !/dairy/.test(food);
+            });
+        }
+
+        if (dairyFree) {
+            foods = foods.filter(function (food) {
+                return !/dairy/.test(food);
+            });
+            foods.push("Suitable dairy-free alternatives where appropriate.");
+        }
+
+        if (fishFree) {
+            foods = foods.filter(function (food) {
+                return !/fish/.test(food);
+            });
+        }
+
+        if (eggFree) {
+            foods = foods.filter(function (food) {
+                return !/eggs/.test(food);
+            });
+        }
+
+        if (glutenFree) {
+            foods = foods.map(function (food) {
+                if (/whole grains|wholemeal bread/.test(food)) {
+                    return "Gluten-free carbohydrate options such as rice, potatoes, quinoa and certified gluten-free oats.";
+                }
+                return food;
+            });
+        }
+
+        if (nutFree) {
+            foods = foods.filter(function (food) {
+                return !/nuts|seeds/.test(food);
+            });
+            foods.push("Suitable alternatives such as avocado or olive oil, if tolerated.");
+        }
+
+        if (vegetarian && !vegan) {
+            foods.push("Vegetarian protein options such as beans, lentils, tofu and suitable dairy products.");
+        }
+
+        if (vegan) {
+            foods.push("Choose varied plant-based protein sources such as beans, lentils, chickpeas and tofu.");
+        }
+
+        return [...new Set(foods)];
     }
 
     // ==========================================
     // 7. REPORT DISPLAY HELPERS
     // ==========================================
 
-    const output = document.getElementById("nutrition-output");
-
     function clearReport() {
-        output.replaceChildren();
+        nutritionOutput.replaceChildren();
     }
 
     function addHeading(text) {
         const heading = document.createElement("h3");
         heading.textContent = text;
-        output.appendChild(heading);
+        nutritionOutput.appendChild(heading);
     }
 
     function addParagraph(text) {
         const paragraph = document.createElement("p");
         paragraph.textContent = text;
-        output.appendChild(paragraph);
+        nutritionOutput.appendChild(paragraph);
     }
 
     function addList(items) {
         const list = document.createElement("ul");
 
         items.forEach(function (item) {
-            const li = document.createElement("li");
-            li.textContent = item;
-            list.appendChild(li);
+            const listItem = document.createElement("li");
+            listItem.textContent = item;
+            list.appendChild(listItem);
         });
 
-        output.appendChild(list);
+        nutritionOutput.appendChild(list);
     }
 
     // ==========================================
-    // 8. SAVE NUTRITION FORM
+    // 8. SAVE NUTRITION INFORMATION
     // ==========================================
-
-    const nutritionForm = document.getElementById("nutrition-form");
 
     nutritionForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -273,101 +421,121 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        if (
-            details.weight &&
-            Number(details.weight) <= 0
-        ) {
-            alert("Please enter a valid current weight.");
+        if (!supportedLevels.includes(details.level)) {
+            alert("Please select a supported training level.");
             return;
         }
 
-        if (
-            details.requiredWeight &&
-            Number(details.requiredWeight) <= 0
-        ) {
-            alert("Please enter a valid target weight.");
+        if (!supportedSports.includes(details.combatSport)) {
+            alert("Please select a supported combat sport.");
             return;
         }
 
-        if (saveData("nutritionDetails", details)) {
-            alert("Nutrition details saved successfully!");
+        if (details.weight) {
+            const weight = Number(details.weight);
+
+            if (!Number.isFinite(weight) || weight <= 0) {
+                alert("Please enter a valid current weight.");
+                return;
+            }
         }
+
+        if (details.requiredWeight) {
+            const targetWeight = Number(details.requiredWeight);
+
+            if (!Number.isFinite(targetWeight) || targetWeight <= 0) {
+                alert("Please enter a valid target weight.");
+                return;
+            }
+        }
+
+        if (details.weight && details.requiredWeight &&
+            details.weightUnit !== document.getElementById("weight-unit").value) {
+            alert("Please check that your weight units are consistent.");
+            return;
+        }
+
+        savedNutritionDetails = details;
+        clearReport();
+
+        alert("Nutrition details saved successfully!");
     });
 
     // ==========================================
-    // 9. GENERATE INTELLIGENT NUTRITION REPORT
+    // 9. GENERATE NUTRITION REPORT
     // ==========================================
 
-    document.getElementById("generate-nutrition-btn").addEventListener("click", function () {
-
-        const details = getSavedData("nutritionDetails");
-
+    function generateNutritionPlan() {
         clearReport();
 
+        const details = savedNutritionDetails;
+
         if (!details) {
-            addParagraph("Please save your nutrition details before generating a plan.");
+            addParagraph(
+                "Please save your nutrition details before generating a plan."
+            );
             return;
         }
 
         const sport = sportNutrition[details.combatSport];
 
         if (!sport) {
-            addParagraph("Please select a supported combat sport and save your details again.");
+            addParagraph(
+                "Please select a supported combat sport and save your details again."
+            );
             return;
         }
 
-        // Fighter profile
+        const generatedAt = new Date().toLocaleString();
 
-        addHeading("FIGHTER NUTRITION PROFILE");
+        // Executive summary
+        addHeading("THE FIGHT CODE — NUTRITION PLAN");
+        addParagraph("Report generated: " + generatedAt);
 
-        addParagraph("Training level: " + details.level);
-        addParagraph("Combat sport: " + details.combatSport);
-        addParagraph("Nutrition goals: " + details.designatedGoals);
+        addHeading("EXECUTIVE SUMMARY");
+        addParagraph(
+            "This preliminary nutrition guide is based on your selected combat sport, training level and stated nutrition goals."
+        );
 
-        if (details.weight) {
-            addParagraph(
-                "Recorded weight: " + details.weight + " " + details.weightUnit
-            );
-        }
+        addList([
+            "Training level: " + details.level,
+            "Combat sport: " + details.combatSport,
+            "Nutrition goals: " + details.designatedGoals
+        ]);
 
-        if (details.requiredWeight) {
-            addParagraph(
-                "Recorded target weight: " + details.requiredWeight + " " + details.weightUnit
-            );
-        }
-
-        // Sport-specific guidance
-
+        // Sport-specific focus
         addHeading("SPORT-SPECIFIC NUTRITION FOCUS");
         addList(sport.focus);
 
-        addHeading("SUGGESTED FOOD GROUPS");
-        addList(sport.foods);
+        // Personalised food suggestions
+        addHeading("PERSONALISED FOOD SUGGESTIONS");
+        addList(getAdjustedFoodRecommendations(sport, details));
 
         // Goal analysis
-
         addHeading("GOAL-BASED RECOMMENDATIONS");
         addList(analyseNutritionGoals(details.designatedGoals));
 
-        // Training-level analysis
-
+        // Training level
         addHeading("TRAINING LEVEL GUIDANCE");
         addParagraph(getLevelGuidance(details.level));
 
-        // Meal schedule
+        // Meal timing
+        addHeading("MEAL TIMING GUIDANCE");
+        addList(sport.mealTiming);
 
+        // Hydration
+        addHeading("HYDRATION GUIDANCE");
+        addList(sport.hydration);
+
+        // Meal routine
         addHeading("MEAL ROUTINE");
+        addParagraph(
+            details.schedule
+                ? "Your recorded meal routine: " + details.schedule
+                : "Establish a consistent meal routine that fits your daily schedule and training sessions."
+        );
 
-        if (details.schedule) {
-            addParagraph("Your recorded meal routine: " + details.schedule);
-        } else {
-            addParagraph(
-                "Establish a consistent meal routine that fits your daily schedule and training sessions."
-            );
-        }
-
-        // Dietary preferences
-
+        // Dietary preferences and restrictions
         addHeading("DIETARY PREFERENCES AND RESTRICTIONS");
 
         addParagraph(
@@ -380,16 +548,31 @@ document.addEventListener("DOMContentLoaded", function () {
             (details.foodRestrictions || "Not provided.")
         );
 
-        // Weight safety
+        if (details.dietaryPreferences || details.foodRestrictions) {
+            addParagraph(
+                "Important: Review every food suggestion against your individual dietary needs and restrictions. This tool cannot verify product ingredients, food labels or cross-contamination."
+            );
+        }
 
+        // Weight considerations
         addHeading("WEIGHT MANAGEMENT CONSIDERATIONS");
 
         if (details.weight && details.requiredWeight) {
             const current = Number(details.weight);
             const target = Number(details.requiredWeight);
 
+            addParagraph(
+                "Recorded current weight: " + current + " " + details.weightUnit
+            );
+
+            addParagraph(
+                "Recorded target weight: " + target + " " + details.weightUnit
+            );
+
             if (current === target) {
-                addParagraph("Your recorded current and target weights are the same.");
+                addParagraph(
+                    "Your recorded current and target weights are the same."
+                );
             } else {
                 addParagraph(
                     "Your recorded current and target weights differ. This tool does not calculate a weight-cutting plan or prescribe a rate of weight change. Discuss competition weight decisions with a qualified sports dietitian and coach."
@@ -401,29 +584,37 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
 
-        // Final guidance
-
+        // Key priorities
         addHeading("IMPORTANT NUTRITION NOTES");
 
         addList([
             "Maintain appropriate fluid intake before, during and after training.",
             "Choose a varied diet that suits your needs, preferences and food availability.",
             "Avoid extreme restriction, dehydration and rapid weight-cutting methods.",
-            "Seek a qualified sports dietitian for individualized nutrition advice, especially during competition preparation.",
+            "Seek a qualified sports dietitian for individualised nutrition advice, especially during competition preparation.",
             "Seek medical advice for food allergies, persistent digestive problems or other health concerns."
         ]);
 
+        // Report information
+        addHeading("REPORT INFORMATION");
+        addParagraph("Last saved: " + details.lastUpdated);
+        addParagraph("Report generated: " + generatedAt);
+
         addParagraph(
-            "This is a preliminary educational guide, not an individualized diet prescription or medical nutrition plan."
+            "This is a preliminary educational guide, not an individualised diet prescription or medical nutrition plan."
         );
 
-        console.log("Nutrition report generated.");
-    });
+        console.log("Nutrition report generated successfully.");
+    }
+
+    generateButton.addEventListener("click", generateNutritionPlan);
 
     // ==========================================
-    // 10. INITIALIZE MODULE
+    // 10. INITIALISE MODULE
     // ==========================================
 
-    restoreNutritionDetails();
+    nutritionForm.reset();
+    clearReport();
 
+    console.log("Nutrition module initialised successfully.");
 });

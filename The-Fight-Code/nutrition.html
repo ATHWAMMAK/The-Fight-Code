@@ -1,134 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>The Fight Code | Nutrition Plans</title>
+
     <link rel="stylesheet" href="style.css">
-    <script src="../nutrition.js" defer></script>
+    <script src="nutrition.js" defer></script>
 </head>
+
 <body>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="gameplan.html">Customized Fighting Game Plans</a>
-    <a href="traingram.html">Curated Training Regimens</a>
-    <a href="nutrition.html" aria-current="page">Nutrition Plans</a>
-    <a href="recovery.html">Recovery Guides</a>
-</nav>
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
 
-<header>
-    <h1>NUTRITION PLANS</h1>
-    <p>
-        Fueling your body is just as important as training for the fight
-        and planning for your next fight. Nutrition plays an important
-        role in maintaining energy, supporting performance and recovery.
-    </p>
-</header>
+        <a href="index.html" class="brand">
+            THE FIGHT CODE<span>.</span>
+        </a>
 
-<main>
-
-    <section id="nutrition-information">
-        <h2>CLASSIFIED FIGHTER DETAILS</h2>
-
-        <form id="nutrition-form">
-
-            <div>
-                <label for="fighter-level">Training Level:</label>
-                <select id="fighter-level" name="level" required>
-                    <option value="">Select training level</option>
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Advanced">Advanced</option>
-                    <option value="Professional">Professional</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="combat-sport">Combat Sport:</label>
-                <select id="combat-sport" name="combat_sport" required>
-                    <option value="">Select combat sport</option>
-                    <option value="Boxing">Boxing</option>
-                    <option value="Mixed Martial Arts">Mixed Martial Arts (MMA)</option>
-                    <option value="Kickboxing">Kickboxing</option>
-                    <option value="Muay Thai">Muay Thai</option>
-                    <option value="Wrestling">Wrestling</option>
-                    <option value="Brazilian Jiu-Jitsu">Brazilian Jiu-Jitsu</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="schedule">Meal Schedule:</label>
-                <textarea id="schedule" name="schedule" rows="4"
-                    placeholder="Describe your usual meal timing and daily routine..."></textarea>
-            </div>
-
-            <div>
-                <label for="designated-goals">Nutrition Goals:</label>
-                <textarea id="designated-goals" name="designated_goals" rows="3"
-                    placeholder="E.g. support training energy, maintain weight, improve meal consistency..."></textarea>
-            </div>
-
-            <div>
-                <label for="weight">Current Weight:</label>
-                <input type="number" id="weight" name="weight"
-                    step="0.1" min="0" placeholder="Enter current weight">
-            </div>
-
-            <div>
-                <label for="weight-unit">Weight Unit:</label>
-                <select id="weight-unit" name="weight_unit">
-                    <option value="kg">Kilograms (kg)</option>
-                    <option value="lbs">Pounds (lbs)</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="required-weight">Target Weight (Optional):</label>
-                <input type="number" id="required-weight" name="required_weight"
-                    step="0.1" min="0" placeholder="Enter target weight">
-            </div>
-
-            <div>
-                <label for="dietary-preferences">Dietary Preferences:</label>
-                <textarea id="dietary-preferences" name="dietary_preferences"
-                    rows="3" placeholder="Describe foods you prefer or commonly eat..."></textarea>
-            </div>
-
-            <div>
-                <label for="food-restrictions">Food Restrictions:</label>
-                <textarea id="food-restrictions" name="food_restrictions"
-                    rows="3" placeholder="Optional: allergies, intolerances or foods you avoid..."></textarea>
-            </div>
-
-            <button type="submit">Save Nutrition Details</button>
-
-        </form>
-    </section>
-
-    <section id="nutrition-plan-generator">
-        <h2>PERSONALIZED NUTRITION PLAN GENERATOR</h2>
-
-        <p>
-            Generate a preliminary nutrition guide using your saved
-            fighter information and nutrition goals.
-        </p>
-
-        <button type="button" id="generate-nutrition-btn">
-            Generate Nutrition Plan
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="nav-links"
+            type="button"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
 
-        <div id="nutrition-results">
-            <div id="nutrition-output"></div>
+        <div class="nav-links" id="nav-links">
+
+            <a href="index.html">Home</a>
+            <a href="gameplan.html">Game Plans</a>
+            <a href="traingram.html">Training</a>
+            <a href="nutrition.html" aria-current="page">Nutrition</a>
+            <a href="recovery.html">Recovery</a>
+
         </div>
-    </section>
 
-</main>
+    </nav>
 
-<footer>
-    <h4>MADE BY FIGHTERS, MADE FOR FIGHTERS, INHABITED BY FIGHTERS</h4>
-    <p>&copy; 2026 The Fight Code, all rights reserved</p>
-</footer>
+    <!-- HEADER -->
+    <header>
+
+        <h1>NUTRITION PLANS</h1>
+
+        <p>
+            Fueling your body is just as important as training for the fight
+            and planning for your next fight. Nutrition plays an important
+            role in maintaining energy, supporting performance and recovery.
+        </p>
+
+    </header>
+
+    <main>
+
+        <!-- NUTRITION INFORMATION -->
+        <section id="nutrition-information">
+
+            <h2>CLASSIFIED FIGHTER DETAILS</h2>
+
+            <form id="nutrition-form">
+
+                <!-- TRAINING LEVEL -->
+                <div>
+                    <label for="fighter-level">Training Level:</label>
+
+                    <select id="fighter-level" name="level" required>
+
+                        <option value="">Select training level</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                        <option value="Professional">Professional</option>
+
+                    </select>
+                </div>
+
+                <!-- COMBAT SPORT -->
+                <div>
+                    <label for="combat-sport">Combat Sport:</label>
+
+                    <select id="combat-sport" name="combat_sport" required>
+
+                        <option value="">Select combat sport</option>
+                        <option value="Boxing">Boxing</option>
+                        <option value="MMA">Mixed Martial Arts (MMA)</option>
+                        <option value="Kickboxing">Kickboxing</option>
+                        <option value="Muay Thai">Muay Thai</option>
+                        <option value="Wrestling">Wrestling</option>
+                        <option value="Brazilian Jiu-Jitsu">Brazilian Jiu-Jitsu</option>
+
+                    </select>
+                </div>
+
+                <!-- MEAL SCHEDULE -->
+                <div>
+                    <label for="schedule">Meal Schedule:</label>
+
+                    <textarea
+                        id="schedule"
+                        name="schedule"
+                        rows="4"
+                        placeholder="Describe your usual meal timing and daily routine..."
+                    ></textarea>
+                </div>
+
+                <!-- NUTRITION GOALS -->
+                <div>
+                    <label for="designated-goals">Nutrition Goals:</label>
+
+                    <textarea
+                        id="designated-goals"
+                        name="designated_goals"
+                        rows="3"
+                        placeholder="E.g. support training energy, maintain weight, improve meal consistency..."
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- CURRENT WEIGHT -->
+                <div>
+                    <label for="weight">Current Weight:</label>
+
+                    <input
+                        type="number"
+                        id="weight"
+                        name="weight"
+                        step="0.1"
+                        min="1"
+                        placeholder="Enter current weight"
+                    >
+                </div>
+
+                <!-- WEIGHT UNIT -->
+                <div>
+                    <label for="weight-unit">Weight Unit:</label>
+
+                    <select id="weight-unit" name="weight_unit">
+
+                        <option value="kg">Kilograms (kg)</option>
+                        <option value="lbs">Pounds (lbs)</option>
+
+                    </select>
+                </div>
+
+                <!-- TARGET WEIGHT -->
+                <div>
+                    <label for="required-weight">Target Weight (Optional):</label>
+
+                    <input
+                        type="number"
+                        id="required-weight"
+                        name="required_weight"
+                        step="0.1"
+                        min="1"
+                        placeholder="Enter target weight"
+                    >
+                </div>
+
+                <!-- DIETARY PREFERENCES -->
+                <div>
+                    <label for="dietary-preferences">Dietary Preferences:</label>
+
+                    <textarea
+                        id="dietary-preferences"
+                        name="dietary_preferences"
+                        rows="3"
+                        placeholder="Describe foods you prefer or commonly eat..."
+                    ></textarea>
+                </div>
+
+                <!-- FOOD RESTRICTIONS -->
+                <div>
+                    <label for="food-restrictions">Food Restrictions:</label>
+
+                    <textarea
+                        id="food-restrictions"
+                        name="food_restrictions"
+                        rows="3"
+                        placeholder="Optional: allergies, intolerances or foods you avoid..."
+                    ></textarea>
+                </div>
+
+                <!-- SUBMIT -->
+                <button type="submit">
+                    Save Nutrition Details
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- NUTRITION PLAN GENERATOR -->
+        <section id="nutrition-plan-generator">
+
+            <h2>PERSONALIZED NUTRITION PLAN GENERATOR</h2>
+
+            <p>
+                Generate a preliminary nutrition guide using your saved
+                fighter information and nutrition goals.
+            </p>
+
+            <p class="nutrition-disclaimer">
+                This generator provides general nutritional guidance,
+                not a medical prescription. Consult a qualified nutrition
+                professional for individual dietary needs, medical conditions
+                and weight-management decisions.
+            </p>
+
+            <button type="button" id="generate-nutrition-btn">
+                Generate Nutrition Plan
+            </button>
+
+            <!-- GENERATED RESULTS -->
+            <div id="nutrition-results">
+
+                <div id="nutrition-output"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <h3>THE FIGHT CODE<span>.</span></h3>
+
+        <p>MADE BY FIGHTERS. MADE FOR FIGHTERS.</p>
+
+        <p>
+            &copy; <span id="current-year"></span>
+            THE FIGHT CODE. ALL RIGHTS RESERVED.
+        </p>
+
+    </footer>
 
 </body>
+
 </html>

@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     console.log("THE FIGHT CODE: Advanced Training Engine Loaded!");
 
     // =====================================
@@ -10,136 +9,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const generateButton = document.getElementById("generate-training-btn");
     const trainingOutput = document.getElementById("training-output");
 
-    // =====================================
-    // 2. STORAGE FUNCTIONS
-    // =====================================
-
-    function getSavedData(key) {
-        try {
-            const data = localStorage.getItem(key);
-            return data ? JSON.parse(data) : null;
-        } catch (error) {
-            console.error("Error retrieving information:", error);
-            return null;
-        }
+    if (!trainingForm || !generateButton || !trainingOutput) {
+        console.error("Training module: required HTML elements are missing.");
+        return;
     }
 
-    function saveData(key, data) {
-        try {
-            localStorage.setItem(key, JSON.stringify(data));
-            return true;
-        } catch (error) {
-            console.error("Error saving information:", error);
-            alert("Unable to save your information.");
-            return false;
-        }
-    }
+    // Temporary in-memory storage
+    let savedTrainingDetails = null;
 
     // =====================================
-    // 3. COLLECT SELECTED TRAINING DAYS
-    // =====================================
-
-    function getSelectedDays() {
-
-        const checkboxes = document.querySelectorAll(
-            'input[name="training_days"]:checked'
-        );
-
-        return Array.from(checkboxes).map(function (checkbox) {
-            return checkbox.value;
-        });
-    }
-
-    // =====================================
-    // 4. COLLECT FIGHTER INFORMATION
-    // =====================================
-
-    function collectTrainingDetails() {
-
-        return {
-            level: document.getElementById("level").value.trim(),
-
-            combatSport: document.getElementById("combat-sport").value.trim(),
-
-            designatedGoal: document.getElementById("designated-goal").value.trim(),
-
-            trainingDays: getSelectedDays(),
-
-            sessionDuration: document.getElementById("session-duration").value,
-
-            lastUpdated: new Date().toLocaleString()
-        };
-    }
-
-    // =====================================
-    // 5. RESTORE SAVED INFORMATION
-    // =====================================
-
-    function restoreTrainingDetails() {
-
-        const savedDetails = getSavedData("trainingDetails");
-
-        if (!savedDetails) return;
-
-        document.getElementById("level").value =
-            savedDetails.level || "";
-
-        document.getElementById("combat-sport").value =
-            savedDetails.combatSport || "";
-
-        document.getElementById("designated-goal").value =
-            savedDetails.designatedGoal || "";
-
-        document.getElementById("session-duration").value =
-            savedDetails.sessionDuration || "";
-
-        const savedDays = savedDetails.trainingDays || [];
-
-        document.querySelectorAll(
-            'input[name="training_days"]'
-        ).forEach(function (checkbox) {
-
-            checkbox.checked = savedDays.includes(checkbox.value);
-
-        });
-    }
-
-    // =====================================
-    // 6. SAVE FIGHTER INFORMATION
-    // =====================================
-
-    trainingForm.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-        const details = collectTrainingDetails();
-
-        if (
-            !details.level ||
-            !details.combatSport ||
-            !details.designatedGoal ||
-            !details.sessionDuration
-        ) {
-            alert("Please complete all fighter information.");
-            return;
-        }
-
-        if (details.trainingDays.length === 0) {
-            alert("Please select at least one available training day.");
-            return;
-        }
-
-        if (saveData("trainingDetails", details)) {
-            alert("Fighter information saved successfully!");
-        }
-    });
-
-    // =====================================
-    // 7. SPORT-SPECIFIC TRAINING DATABASE
+    // 2. SPORT-SPECIFIC TRAINING DATABASE
     // =====================================
 
     const sportFocus = {
-
         "Boxing": [
             "Stance, guard, balance and boxing footwork.",
             "Punching combinations, accuracy and timing.",
@@ -147,15 +29,13 @@ document.addEventListener("DOMContentLoaded", function () {
             "Pad work and controlled bag work.",
             "Boxing-specific conditioning."
         ],
-
-        "Mixed Martial Arts": [
+        "MMA": [
             "Striking fundamentals: punches, kicks, knees and elbows.",
             "Wrestling entries, takedown defence and positional control.",
             "Brazilian Jiu-Jitsu fundamentals and positional transitions.",
             "Clinch work and controlled transitions between disciplines.",
             "MMA-specific movement and conditioning."
         ],
-
         "Kickboxing": [
             "Punching and kicking combinations.",
             "Distance management and footwork.",
@@ -163,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "Pad work and controlled bag work.",
             "Kickboxing-specific conditioning."
         ],
-
         "Muay Thai": [
             "Punches, kicks, knees and elbow techniques.",
             "Clinch fundamentals and positional control.",
@@ -171,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "Pad work and technical combinations.",
             "Muay Thai-specific conditioning."
         ],
-
         "Wrestling": [
             "Stance, motion and level changes.",
             "Takedown entries, finishes and defence.",
@@ -179,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "Technical drilling and controlled partner practice.",
             "Wrestling-specific strength and conditioning."
         ],
-
         "Brazilian Jiu-Jitsu": [
             "Guard retention and guard passing.",
             "Escapes, transitions and positional control.",
@@ -189,65 +66,96 @@ document.addEventListener("DOMContentLoaded", function () {
         ]
     };
 
+    const supportedLevels = [
+        "Beginner", "Intermediate", "Advanced", "Professional"
+    ];
+
+    const supportedSports = Object.keys(sportFocus);
+
     // =====================================
-    // 8. GOAL-SPECIFIC RECOMMENDATIONS
+    // 3. COLLECT FIGHTER INFORMATION
+    // =====================================
+
+    function getSelectedDays() {
+        return Array.from(
+            document.querySelectorAll(
+                'input[name="training_days"]:checked'
+            )
+        ).map(function (checkbox) {
+            return checkbox.value;
+        });
+    }
+
+    function collectTrainingDetails() {
+        return {
+            level: document.getElementById("level").value.trim(),
+            combatSport: document.getElementById("combat-sport").value.trim(),
+            designatedGoal: document.getElementById("designated-goal").value.trim(),
+            trainingDays: getSelectedDays(),
+            sessionDuration: document.getElementById("session-duration").value,
+            lastUpdated: new Date().toLocaleString()
+        };
+    }
+
+    // =====================================
+    // 4. GOAL-BASED RECOMMENDATIONS
     // =====================================
 
     function getGoalFocus(goal) {
-
-        const lowerGoal = goal.toLowerCase();
+        const text = goal.toLowerCase();
         const recommendations = [];
 
-        if (
-            lowerGoal.includes("strength") ||
-            lowerGoal.includes("power")
-        ) {
+        if (/strength|muscle/.test(text)) {
             recommendations.push(
-                "Progressive strength training using appropriate resistance.",
-                "Developing power through technically sound exercises."
+                "Use progressive strength training with appropriate resistance.",
+                "Develop strength while maintaining sound exercise technique."
             );
         }
 
-        if (
-            lowerGoal.includes("speed") ||
-            lowerGoal.includes("agility") ||
-            lowerGoal.includes("footwork")
-        ) {
+        if (/power|explosive/.test(text)) {
             recommendations.push(
-                "Footwork and coordination exercises.",
-                "Short, controlled speed and reaction drills."
+                "Develop explosive movement through suitable, controlled drills.",
+                "Build power progressively under appropriate supervision."
             );
         }
 
-        if (
-            lowerGoal.includes("endurance") ||
-            lowerGoal.includes("stamina") ||
-            lowerGoal.includes("conditioning")
-        ) {
+        if (/speed|quickness|agility|footwork/.test(text)) {
             recommendations.push(
-                "Progressive aerobic conditioning.",
-                "Sport-specific interval training with adequate recovery."
+                "Practise footwork, coordination and movement patterns.",
+                "Include short, controlled speed and reaction drills."
             );
         }
 
-        if (
-            lowerGoal.includes("technique") ||
-            lowerGoal.includes("skill") ||
-            lowerGoal.includes("defence") ||
-            lowerGoal.includes("defense")
-        ) {
+        if (/endurance|stamina|conditioning|cardio/.test(text)) {
             recommendations.push(
-                "Technical repetition focusing on correct movement.",
-                "Controlled partner drills and coach-supervised feedback."
+                "Develop aerobic conditioning progressively.",
+                "Use sport-specific intervals with adequate recovery."
             );
         }
 
-        if (
-            lowerGoal.includes("flexibility") ||
-            lowerGoal.includes("mobility")
-        ) {
+        if (/technique|technical|skill|defen[cs]e|guard/.test(text)) {
             recommendations.push(
-                "Regular mobility and appropriate flexibility exercises."
+                "Prioritise technical repetition and correct movement.",
+                "Use controlled partner drills and coach-supervised feedback."
+            );
+        }
+
+        if (/grappling|wrestling|takedown|submission/.test(text)) {
+            recommendations.push(
+                "Practise appropriate grappling positions and transitions.",
+                "Develop takedown, control or submission skills relevant to your sport."
+            );
+        }
+
+        if (/flexibility|mobility|movement/.test(text)) {
+            recommendations.push(
+                "Include regular mobility and suitable flexibility exercises."
+            );
+        }
+
+        if (/balance|coordination/.test(text)) {
+            recommendations.push(
+                "Include balance, coordination and controlled movement drills."
             );
         }
 
@@ -258,120 +166,94 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
 
-        return recommendations;
+        return [...new Set(recommendations)];
     }
 
     // =====================================
-    // 9. EXPERIENCE-LEVEL GUIDANCE
+    // 5. EXPERIENCE-LEVEL GUIDANCE
     // =====================================
 
     function getLevelGuidance(level) {
+        const guidance = {
+            "Beginner": [
+                "Prioritise fundamental techniques and correct movement.",
+                "Start with manageable training volume.",
+                "Increase difficulty gradually as skills develop.",
+                "Allow sufficient recovery between demanding sessions."
+            ],
+            "Intermediate": [
+                "Develop consistency across technical and physical training.",
+                "Gradually increase training complexity.",
+                "Identify development areas through structured practice.",
+                "Use coach feedback to improve performance."
+            ],
+            "Advanced": [
+                "Structure training around specific performance goals.",
+                "Coordinate technical, tactical and physical training.",
+                "Monitor training load and recovery.",
+                "Use regular performance reviews."
+            ],
+            "Professional": [
+                "Prioritise structured performance development.",
+                "Coordinate technical, tactical and physical preparation.",
+                "Monitor workload, performance and recovery.",
+                "Review the programme with your coaching team."
+            ]
+        };
 
-        switch (level) {
-
-            case "Beginner":
-                return [
-                    "Prioritise fundamental techniques and correct movement.",
-                    "Start with manageable training volume.",
-                    "Increase difficulty gradually as your skills develop.",
-                    "Allow sufficient recovery between demanding sessions."
-                ];
-
-            case "Intermediate":
-                return [
-                    "Develop consistency across technical and physical training.",
-                    "Gradually increase training complexity.",
-                    "Identify weaknesses through structured practice.",
-                    "Use coach feedback to improve performance."
-                ];
-
-            case "Advanced":
-                return [
-                    "Develop a structured programme around specific performance goals.",
-                    "Coordinate technical, tactical and physical training.",
-                    "Monitor training load and recovery.",
-                    "Use regular performance reviews."
-                ];
-
-            case "Professional":
-                return [
-                    "Prioritise structured performance development.",
-                    "Coordinate technical, tactical and physical preparation.",
-                    "Monitor workload, performance and recovery.",
-                    "Review the programme with your coaching team."
-                ];
-
-            default:
-                return [
-                    "Establish a consistent training routine.",
-                    "Adjust difficulty according to experience and recovery.",
-                    "Seek guidance from a qualified coach."
-                ];
-        }
+        return guidance[level] || [
+            "Establish a consistent training routine.",
+            "Adjust difficulty according to experience and recovery.",
+            "Seek guidance from a qualified coach."
+        ];
     }
 
     // =====================================
-    // 10. DETERMINE SESSION STRUCTURE
+    // 6. SESSION STRUCTURE
     // =====================================
 
     function getSessionStructure(duration) {
-
-        const minutes = Number(duration);
-
-        if (minutes === 30) {
-            return [
+        const structures = {
+            "30": [
                 "5 minutes — Warm-up and movement preparation.",
                 "20 minutes — Main technical training focus.",
                 "5 minutes — Cool-down."
-            ];
-        }
-
-        if (minutes === 45) {
-            return [
+            ],
+            "45": [
                 "5 minutes — Warm-up and movement preparation.",
                 "30 minutes — Main technical or conditioning focus.",
                 "10 minutes — Cool-down and mobility."
-            ];
-        }
-
-        if (minutes === 60) {
-            return [
+            ],
+            "60": [
                 "10 minutes — Warm-up and movement preparation.",
                 "35 minutes — Main training focus.",
                 "10 minutes — Supporting drills or conditioning.",
                 "5 minutes — Cool-down."
-            ];
-        }
-
-        if (minutes === 90) {
-            return [
+            ],
+            "90": [
                 "10 minutes — Warm-up and movement preparation.",
                 "40 minutes — Main technical training focus.",
                 "20 minutes — Supporting physical development.",
                 "10 minutes — Controlled application or drills.",
                 "10 minutes — Cool-down and mobility."
-            ];
-        }
-
-        if (minutes === 120) {
-            return [
+            ],
+            "120": [
                 "15 minutes — Warm-up and movement preparation.",
                 "45 minutes — Main technical training focus.",
                 "25 minutes — Supporting physical development.",
                 "20 minutes — Controlled sport-specific practice.",
                 "15 minutes — Cool-down and mobility."
-            ];
-        }
+            ]
+        };
 
-        return [];
+        return structures[String(duration)] || [];
     }
 
     // =====================================
-    // 11. BUILD WEEKLY TRAINING STRUCTURE
+    // 7. WEEKLY TRAINING STRUCTURE
     // =====================================
 
     function createTrainingSessions(trainingDays) {
-
         const sessionTypes = [
             {
                 focus: "Technical Development",
@@ -395,13 +277,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         ];
 
-        // Limit the default plan to five training sessions.
-        // Remaining available days can be used for recovery.
-
-        const selectedDays = trainingDays.slice(0, 5);
-
-        return selectedDays.map(function (day, index) {
-
+        return trainingDays.slice(0, 5).map(function (day, index) {
             return {
                 day: day,
                 focus: sessionTypes[index].focus,
@@ -411,184 +287,192 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // =====================================
-    // 12. DISPLAY FUNCTIONS
+    // 8. REPORT DISPLAY HELPERS
     // =====================================
 
-    function addHeading(container, text) {
+    function clearReport() {
+        trainingOutput.replaceChildren();
+    }
 
+    function addHeading(text) {
         const heading = document.createElement("h3");
         heading.textContent = text;
-        container.appendChild(heading);
+        trainingOutput.appendChild(heading);
     }
 
-    function addParagraph(container, text) {
-
+    function addParagraph(text) {
         const paragraph = document.createElement("p");
         paragraph.textContent = text;
-        container.appendChild(paragraph);
+        trainingOutput.appendChild(paragraph);
     }
 
-    function addList(container, items) {
-
+    function addList(items) {
         const list = document.createElement("ul");
 
         items.forEach(function (item) {
-
             const listItem = document.createElement("li");
             listItem.textContent = item;
             list.appendChild(listItem);
-
         });
 
-        container.appendChild(list);
+        trainingOutput.appendChild(list);
     }
 
     // =====================================
-    // 13. GENERATE TRAINING REGIMEN
+    // 9. SAVE FIGHTER INFORMATION
     // =====================================
 
-    function generateTrainingRegimen() {
+    trainingForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-        const details = getSavedData("trainingDetails");
-
-        if (!details) {
-            alert("Please save your fighter information first.");
-            return;
-        }
+        const details = collectTrainingDetails();
 
         if (
             !details.level ||
             !details.combatSport ||
             !details.designatedGoal ||
-            !details.sessionDuration ||
-            !Array.isArray(details.trainingDays) ||
-            details.trainingDays.length === 0
+            !details.sessionDuration
         ) {
-            alert("Your fighter information is incomplete. Please update and save it.");
+            alert("Please complete all fighter information.");
             return;
         }
 
-        const selectedSport = sportFocus[details.combatSport];
+        if (!supportedLevels.includes(details.level)) {
+            alert("Please select a supported training level.");
+            return;
+        }
 
-        if (!selectedSport) {
+        if (!supportedSports.includes(details.combatSport)) {
             alert("Please select a supported combat sport.");
             return;
         }
 
-        const sessionStructure = getSessionStructure(
-            details.sessionDuration
-        );
+        if (!getSessionStructure(details.sessionDuration).length) {
+            alert("Please select a valid session duration.");
+            return;
+        }
 
-        const weeklySessions = createTrainingSessions(
-            details.trainingDays
-        );
+        if (details.trainingDays.length === 0) {
+            alert("Please select at least one available training day.");
+            return;
+        }
 
-        // Clear previous results.
+        savedTrainingDetails = details;
+        clearReport();
 
-        trainingOutput.innerHTML = "";
+        alert("Fighter information saved successfully!");
+    });
 
-        // FIGHTER PROFILE
+    // =====================================
+    // 10. GENERATE TRAINING REGIMEN
+    // =====================================
 
-        addHeading(trainingOutput, "FIGHTER PROFILE");
+    function generateTrainingRegimen() {
+        clearReport();
 
-        addParagraph(trainingOutput, "Training Level: " + details.level);
+        const details = savedTrainingDetails;
 
-        addParagraph(trainingOutput, "Combat Sport: " + details.combatSport);
+        if (!details) {
+            addParagraph(
+                "Please save your fighter information before generating a training regimen."
+            );
+            return;
+        }
 
-        addParagraph(trainingOutput, "Training Goals: " + details.designatedGoal);
+        const sport = sportFocus[details.combatSport];
 
+        if (!sport) {
+            addParagraph(
+                "Please select a supported combat sport and save your details again."
+            );
+            return;
+        }
+
+        const generatedAt = new Date().toLocaleString();
+        const sessions = createTrainingSessions(details.trainingDays);
+
+        // Executive summary
+        addHeading("THE FIGHT CODE — TRAINING REGIMEN");
+        addParagraph("Report generated: " + generatedAt);
+
+        addHeading("EXECUTIVE SUMMARY");
         addParagraph(
-            trainingOutput,
-            "Available Training Days: " + details.trainingDays.join(", ")
+            "This preliminary training template is based on your selected " +
+            details.combatSport + " discipline, experience level and development goals."
         );
 
-        addParagraph(
-            trainingOutput,
-            "Session Duration: " + details.sessionDuration + " minutes"
-        );
-
-        // SPORT-SPECIFIC TRAINING
-
-        addHeading(trainingOutput, "SPORT-SPECIFIC TRAINING FOCUS");
-
-        addList(trainingOutput, selectedSport);
-
-        // GOAL-BASED DEVELOPMENT
-
-        addHeading(trainingOutput, "GOAL-BASED DEVELOPMENT");
-
-        addList(trainingOutput, getGoalFocus(details.designatedGoal));
-
-        // EXPERIENCE-LEVEL GUIDANCE
-
-        addHeading(trainingOutput, "EXPERIENCE-LEVEL GUIDANCE");
-
-        addList(trainingOutput, getLevelGuidance(details.level));
-
-        // SESSION STRUCTURE
-
-        addHeading(trainingOutput, "SESSION STRUCTURE");
-
-        addList(trainingOutput, sessionStructure);
-
-        // WEEKLY TRAINING PROGRAMME
-
-        addHeading(trainingOutput, "YOUR WEEKLY TRAINING PROGRAMME");
-
-        weeklySessions.forEach(function (session) {
-
-            const dayHeading = document.createElement("h4");
-
-            dayHeading.textContent = session.day + " — " + session.focus;
-
-            const dayDetails = document.createElement("p");
-
-            dayDetails.textContent = session.details;
-
-            trainingOutput.appendChild(dayHeading);
-            trainingOutput.appendChild(dayDetails);
-
-        });
-
-        // RECOVERY
-
-        addHeading(trainingOutput, "RECOVERY AND PERFORMANCE");
-
-        addList(trainingOutput, [
-            "Prioritise sufficient sleep and recovery.",
-            "Increase training volume and intensity gradually.",
-            "Monitor fatigue and take additional rest when needed.",
-            "Use unassigned days for recovery rather than automatically adding more sessions.",
-            "Discuss your training load with a qualified coach."
+        addList([
+            "Training level: " + details.level,
+            "Combat sport: " + details.combatSport,
+            "Development goals: " + details.designatedGoal,
+            "Selected training days: " + details.trainingDays.join(", "),
+            "Session duration: " + details.sessionDuration + " minutes"
         ]);
 
-        // COACHING NOTE
+        // Sport focus
+        addHeading("SPORT-SPECIFIC TRAINING FOCUS");
+        addList(sport);
 
-        addHeading(trainingOutput, "COACHING NOTE");
+        // Goal analysis
+        addHeading("PERSONALISED DEVELOPMENT PRIORITIES");
+        addList(getGoalFocus(details.designatedGoal));
 
+        // Level guidance
+        addHeading("EXPERIENCE-LEVEL GUIDANCE");
+        addList(getLevelGuidance(details.level));
+
+        // Session structure
+        addHeading("SESSION STRUCTURE");
+        addList(getSessionStructure(details.sessionDuration));
+
+        // Weekly schedule
+        addHeading("WEEKLY TRAINING STRUCTURE");
+
+        sessions.forEach(function (session) {
+            addHeading(session.day + " — " + session.focus);
+            addParagraph(session.details);
+        });
+
+        if (details.trainingDays.length > 5) {
+            addHeading("ADDITIONAL AVAILABLE DAYS");
+            addParagraph(
+                details.trainingDays.slice(5).join(", ") +
+                " — consider using these days for rest, light mobility or gentle recovery rather than automatically adding demanding sessions."
+            );
+        }
+
+        // Recovery
+        addHeading("RECOVERY AND PERFORMANCE");
+        addList([
+            "Allow adequate rest between demanding training sessions.",
+            "Maintain regular sleep and balanced nutrition habits.",
+            "Adjust training volume when fatigue accumulates.",
+            "Discuss pain, injuries or persistent fatigue with an appropriate professional."
+        ]);
+
+        // Coaching note
+        addHeading("COACHING NOTE");
         addParagraph(
-            trainingOutput,
-            "This is a preliminary training template based on the information you supplied. It is not a validated coaching prescription or medical programme. A qualified combat sports coach should review and adapt it to your experience, training demands and recovery needs."
+            "Use this schedule as a starting template, not a fixed fight-camp programme. A qualified coach should adjust drills, intensity, sparring and workload to your ability, goals and recovery."
         );
 
-        // DISPLAY RESULTS
+        addParagraph("Last saved: " + details.lastUpdated);
+        addParagraph("Report generated: " + generatedAt);
+        addParagraph(
+            "This is a preliminary educational training template, not an individualized coaching prescription or medical assessment."
+        );
 
-        trainingOutput.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+        console.log("Training regimen generated successfully.");
     }
-
-    // =====================================
-    // 14. GENERATOR BUTTON
-    // =====================================
 
     generateButton.addEventListener("click", generateTrainingRegimen);
 
     // =====================================
-    // 15. RESTORE SAVED INFORMATION
+    // 11. INITIALISE MODULE
     // =====================================
 
-    restoreTrainingDetails();
+    trainingForm.reset();
+    clearReport();
 
+    console.log("Training module initialised successfully.");
 });

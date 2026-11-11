@@ -1,494 +1,2114 @@
- :root {
-    --background: #090b10;
-    --panel: #111722;
-    --input-background: #1b2532;
-    --red: #e63946;
-    --red-hover: #c52c39;
-    --blue: #438ce8;
-    --text: #f5f5f5;
-    --muted: #c0c8d3;
-    --border: rgba(255, 255, 255, 0.13);
+ /* =========================================
+   THE FIGHT CODE - HOMEPAGE DESIGN
+   ========================================= */
+
+
+/* COLOR PALETTE */
+
+:root {
+    --fight-red: #e63946;
+    --fight-red-dark: #b91f2b;
+    --fight-blue: #438ce8;
+    --fight-black: #08090c;
+    --fight-dark: #111318;
+    --fight-card: #171a21;
+    --fight-white: #f5f5f5;
+    --fight-muted: #a5a9b2;
 }
 
-* {
-    margin: 0;
-    padding: 0;
+
+/* GENERAL HOMEPAGE SETTINGS */
+
+body:has(.hero) {
+    background: var(--fight-black);
+    color: var(--fight-white);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.7;
+}
+
+body:has(.hero) * {
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+body:has(.hero) a {
+    text-decoration: none;
 }
 
-body {
-    min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.7;
-    color: var(--text);
 
-    background-color: var(--background);
+/* NAVIGATION */
+
+.main-nav {
+    min-height: 75px;
+    padding: 15px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    background: rgba(8, 9, 12, 0.97);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.brand {
+    color: var(--fight-white);
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+.brand span,
+.site-footer span {
+    color: var(--fight-red);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--fight-muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+    color: var(--fight-red);
+}
+
+
+/* =====================================
+   HERO SECTION - THE FIGHT CODE
+===================================== */
+
+.hero {
+    min-height: 720px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 100px 8%;
+    overflow: hidden;
 
     background-image:
         linear-gradient(
-            rgba(5, 7, 12, 0.82),
-            rgba(5, 7, 12, 0.93)
+            90deg,
+            rgba(5, 6, 10, 0.98) 0%,
+            rgba(5, 6, 10, 0.88) 38%,
+            rgba(5, 6, 10, 0.35) 72%,
+            rgba(5, 6, 10, 0.15) 100%
         ),
-        url("https://i.pinimg.com/1200x/9e/b2/33/9eb23367a246664c199b3e13b21f00bc.jpg");
+        url("The Fight Code_ Combat Sports Collage.png");
 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
-nav {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-
-    padding: 1rem 3%;
-
-    background: rgba(9, 11, 16, 0.97);
-    border-bottom: 3px solid var(--red);
-    backdrop-filter: blur(12px);
+    background: linear-gradient(
+        0deg,
+        rgba(8, 9, 12, 0.65),
+        transparent 35%
+    );
 }
 
-nav a {
-    display: inline-block;
-
-    padding: 0.65rem 0.9rem;
-
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 700;
-
-    border-radius: 5px;
-
-    transition: 0.25s ease;
+.hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 680px;
+    padding: 35px 0;
 }
 
-nav a:hover,
-nav a:focus-visible {
-    color: white;
-    background: var(--red);
-}
-
-nav a[aria-current="page"] {
-    color: white;
-    background: var(--red);
-}
-
-
-
-header {
-    max-width: 1100px;
-    margin: 0 auto;
-
-    padding: 7rem 1.5rem 5rem;
-
-    text-align: center;
-}
-
-header h1 {
-    margin-bottom: 1.5rem;
-
-    color: white;
-
-    font-size: clamp(2.5rem, 7vw, 5.5rem);
-    font-weight: 900;
-    line-height: 1.1;
-    letter-spacing: -0.035em;
-
+.hero-tagline {
+    color: #ff5260;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    line-height: 1.6;
+    margin-bottom: 25px;
     text-transform: uppercase;
-
-    text-shadow: 0 0 30px rgba(230, 57, 70, 0.3);
 }
 
-header p {
-    max-width: 850px;
-    margin: 0 auto;
+.hero h1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
 
-    color: var(--muted);
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -2px;
+    margin: 0 0 28px;
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+}
+
+.headline-white {
+    color: #ffffff;
+}
+
+.headline-red {
+    color: #f04452;
+}
+
+.hero-description {
+    max-width: 530px;
+    color: #d2d5dd;
     font-size: 1.05rem;
-    line-height: 1.9;
-}
-
-
-
-article {
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-
-    gap: 1.25rem;
-
-    max-width: 1150px;
-    margin: 2rem auto;
-    padding: 2rem;
-
-    background: rgba(15, 19, 28, 0.94);
-
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--red);
-    border-radius: 12px;
-
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-}
-
-article h2 {
-    grid-column: 1 / -1;
-
-    color: var(--red);
-
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    font-weight: 900;
-    line-height: 1.3;
-}
-
-article img {
-    display: block;
-
-    width: 100%;
-    height: 230px;
-
-    object-fit: cover;
-
-    border-radius: 8px;
-    border: 1px solid var(--border);
-
-    transition: transform 0.3s ease,
-                filter 0.3s ease;
-}
-
-article img:hover {
-    transform: translateY(-5px);
-    filter: brightness(1.15);
-}
-
-article p {
-    grid-column: 1 / -1;
-
-    color: var(--muted);
-    font-size: 1rem;
     line-height: 1.8;
+    margin-bottom: 32px;
 }
 
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
 
+    padding: 16px 28px;
+    background: #e63946;
+    border: 1px solid #e63946;
+    color: #ffffff;
 
-main {
-    width: min(1050px, 92%);
-    margin: 3rem auto 5rem;
-
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-}
-
-
-
-main > section {
-    width: 100%;
-    padding: clamp(1.5rem, 4vw, 3rem);
-
-    background: rgba(12, 17, 26, 0.97);
-
-    border: 1px solid var(--border);
-    border-top: 4px solid var(--red);
-    border-radius: 14px;
-
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4);
-}
-
-
-
-main > section:nth-child(2) {
-    border-top-color: var(--blue);
-}
-
-
-
-main > section h2 {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-
-    color: var(--red);
-
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 900;
-    line-height: 1.3;
-
-    border-bottom: 1px solid var(--border);
-}
-
-main > section:nth-child(2) h2 {
-    color: var(--blue);
-}
-
-
-
-main form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-main form > div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-}
-
-main form label {
-    display: block;
-
-    color: var(--text);
-    font-size: 0.98rem;
-    font-weight: 700;
-}
-
-
-
-main input,
-main select,
-main textarea {
-    display: block;
-
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-
-    padding: 1rem 1.1rem;
-
-    color: var(--text);
-    font: inherit;
-
-    background: var(--input-background);
-
-    border: 1px solid #394454;
-    border-radius: 8px;
-
-    transition: border-color 0.2s ease,
-                box-shadow 0.2s ease;
-}
-
-main input::placeholder,
-main textarea::placeholder {
-    color: #a3adbc;
-}
-
-main input:focus-visible,
-main select:focus-visible,
-main textarea:focus-visible {
-    outline: 2px solid var(--red);
-    outline-offset: 2px;
-
-    border-color: var(--red);
-}
-
-main > section:nth-child(2) input:focus-visible,
-main > section:nth-child(2) select:focus-visible,
-main > section:nth-child(2) textarea:focus-visible {
-    outline-color: var(--blue);
-    border-color: var(--blue);
-}
-
-main textarea {
-    min-height: 130px;
-    resize: vertical;
-}
-
-
-
-main fieldset {
-    min-width: 0;
-    width: 100%;
-
-    padding: 1.5rem;
-
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    background: rgba(255, 255, 255, 0.025);
-
-    border: 1px solid #394454;
-    border-radius: 10px;
-}
-
-main legend {
-    padding: 0 0.7rem;
-
-    color: var(--text);
+    font-size: 0.9rem;
     font-weight: 800;
-    font-size: 1rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
-main .footage-input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-
-    width: 100%;
-    margin-bottom: 1rem;
+.hero-button:hover {
+    background: transparent;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(230, 57, 70, 0.25);
 }
 
-
-
-main button {
-    width: fit-content;
-    max-width: 100%;
-
-    padding: 0.9rem 1.5rem;
-
-    color: white;
-    background: var(--red);
-
-    border: 1px solid var(--red);
-    border-radius: 8px;
-
-    font: inherit;
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition: background 0.25s ease,
-                transform 0.25s ease;
-}
-
-main button:hover {
-    background: var(--red-hover);
-    transform: translateY(-2px);
-}
-
-main button:focus-visible {
-    outline: 2px solid white;
-    outline-offset: 3px;
+.hero-button:focus-visible {
+    outline: 3px solid #438ce8;
+    outline-offset: 5px;
 }
 
 
+/* TABLET */
 
-main > section:nth-child(2) button {
-    background: var(--blue);
-    border-color: var(--blue);
+@media (max-width: 900px) {
+    .hero {
+        min-height: 650px;
+        padding: 85px 7%;
+        background-position: 58% center;
+    }
+
+    .hero-content {
+        max-width: 620px;
+    }
 }
 
-main > section:nth-child(2) button:hover {
-    background: #286ac0;
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .hero {
+        min-height: 620px;
+        padding: 75px 6%;
+        align-items: center;
+        background-position: 62% center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero-tagline {
+        font-size: 0.7rem;
+        letter-spacing: 2.5px;
+        margin-bottom: 20px;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.35rem, 10vw, 3.6rem);
+        letter-spacing: -1.5px;
+        gap: 7px;
+    }
+
+    .hero-description {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .hero-button {
+        padding: 14px 20px;
+        font-size: 0.8rem;
+    }
+}
+
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-button {
+        transition: none;
+    }
+
+    .hero-button:hover {
+        transform: none;
+    }
 }
 
 
 
-footer {
-    margin-top: 5rem;
-    padding: 3rem 1.5rem;
 
+
+/* PLATFORM INTRODUCTION */
+
+.platform-intro {
+    max-width: 850px;
+    margin: auto;
+    padding: 100px 25px 70px;
     text-align: center;
-
-    background: rgba(5, 7, 12, 0.97);
-
-    border-top: 3px solid var(--red);
 }
 
-footer h4 {
-    margin-bottom: 1rem;
+.platform-intro h2,
+.modules-heading h2,
+.fight-process h2,
+.closing-section h2 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.2;
+    font-weight: 900;
+    margin: 15px 0 25px;
+}
 
-    color: var(--text);
+.platform-intro > p:last-child {
+    color: var(--fight-muted);
+    font-size: 1.05rem;
+}
 
-    font-size: 1rem;
+
+/* MODULES SECTION */
+
+#fight-modules {
+    padding: 50px 7% 110px;
+    background: #0d0f14;
+}
+
+.modules-heading {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+    max-width: 1250px;
+    margin: auto;
+}
+
+.module-card {
+    background: var(--fight-card);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.module-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--fight-red);
+}
+
+.module-card img {
+    display: block;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.module-card:hover img {
+    transform: scale(1.04);
+}
+
+.module-content {
+    padding: 30px;
+}
+
+.module-number {
+    color: var(--fight-blue);
+    font-size: 0.78rem;
     font-weight: 800;
-    letter-spacing: 0.08em;
+    letter-spacing: 2px;
 }
 
-footer p {
-    color: var(--muted);
+.module-content h3 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    margin: 10px 0;
+}
+
+.module-content > p:not(.module-number) {
+    color: var(--fight-muted);
+    margin-bottom: 25px;
+}
+
+.module-link {
+    display: inline-block;
+    color: var(--fight-red);
     font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.module-link:hover {
+    color: white;
 }
 
 
+/* HOW IT WORKS */
 
-@media (max-width: 768px) {
-
-    nav {
-        gap: 0.25rem;
-        padding: 0.75rem 0.5rem;
-    }
-
-    nav a {
-        padding: 0.55rem 0.65rem;
-        font-size: 0.82rem;
-    }
-
-    header {
-        padding: 4rem 1.25rem 3rem;
-    }
-
-    main {
-        width: 94%;
-        gap: 2rem;
-        margin: 2rem auto 3rem;
-    }
-
-    main > section {
-        padding: 1.5rem;
-    }
-
-    article {
-        margin: 1.5rem 0.75rem;
-        padding: 1.25rem;
-    }
+.fight-process {
+    padding: 100px 7%;
+    text-align: center;
 }
 
-@media (max-width: 480px) {
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 60px auto 0;
+}
 
-    header h1 {
-        font-size: 2.3rem;
+.process-item {
+    padding: 30px 20px;
+    background: var(--fight-dark);
+    border-bottom: 3px solid var(--fight-red);
+}
+
+.process-item span {
+    color: var(--fight-red);
+    font-size: 2.2rem;
+    font-weight: 900;
+}
+
+.process-item h3 {
+    margin: 15px 0;
+    font-size: 1.2rem;
+}
+
+.process-item p {
+    color: var(--fight-muted);
+    font-size: 0.95rem;
+}
+
+
+/* CLOSING SECTION */
+
+.closing-section {
+    padding: 100px 25px;
+    text-align: center;
+    background:
+        linear-gradient(
+            rgba(8, 9, 12, 0.88),
+            rgba(8, 9, 12, 0.94)
+        ),
+        url("https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=1920")
+        center / cover no-repeat;
+}
+
+.closing-section > p:not(.section-label) {
+    color: #c4c7ce;
+    max-width: 650px;
+    margin: 0 auto 35px;
+}
+
+
+/* FOOTER */
+
+.site-footer {
+    padding: 50px 20px;
+    text-align: center;
+    background: #050609;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-footer h3 {
+    font-size: 1.7rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.site-footer p {
+    color: var(--fight-muted);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-top: 12px;
+}
+
+
+/* ACCESSIBILITY */
+
+.hero-button:focus-visible,
+.module-link:focus-visible,
+.nav-links a:focus-visible {
+    outline: 3px solid var(--fight-blue);
+    outline-offset: 5px;
+}
+
+
+/* TABLET RESPONSIVENESS */
+
+@media (max-width: 900px) {
+
+    .main-nav {
+        flex-direction: column;
+        padding: 20px;
     }
 
-    header p {
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 15px 22px;
+    }
+
+    .hero {
+        min-height: 600px;
+        padding: 80px 7%;
+    }
+
+    .process-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 600px) {
+
+    .main-nav {
+        position: relative;
+    }
+
+    .nav-links {
+        gap: 12px 16px;
+    }
+
+    .nav-links a {
+        font-size: 0.78rem;
+    }
+
+    .hero {
+        min-height: 570px;
+        padding: 70px 7%;
+        background-position: 60% center;
+    }
+
+    .hero h1 {
+        letter-spacing: -1px;
+    }
+
+    .hero-description {
         font-size: 0.95rem;
     }
 
-    main > section {
-        padding: 1.1rem;
+    .platform-intro {
+        padding: 75px 22px 55px;
     }
 
-    main fieldset {
-        padding: 1rem;
+    #fight-modules {
+        padding: 50px 20px 75px;
     }
 
-    main button {
+    .module-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .module-card img {
+        height: 230px;
+    }
+
+    .module-content {
+        padding: 24px;
+    }
+
+    .process-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .fight-process {
+        padding: 75px 22px;
+    }
+
+    .closing-section {
+        padding: 75px 22px;
+    }
+
+    .site-footer {
+        padding: 40px 20px;
+    }
+
+}
+
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .module-card,
+    .module-card img,
+    .hero-button,
+    .module-link {
+        transition: none;
+    }
+
+    .module-card:hover,
+    .hero-button:hover,
+    .module-card:hover img {
+        transform: none;
+    }
+
+}
+
+/* =====================================
+   HOMEPAGE SCROLL REVEAL
+===================================== */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ============================= */
+/* MOBILE NAVIGATION */
+/* ============================= */
+
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    margin: 5px 0;
+    background: #ffffff;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+@media (max-width: 900px) {
+
+    .main-nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px 7%;
+        background: #08090c;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-links.is-open {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 13px 0;
+    }
+}
+
+@media (min-width: 601px) {
+    .hero h1 span {
+        white-space: nowrap;
+    }
+}
+
+/* MODULE CARD INTERACTIONS */
+
+.module-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.module-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.module-card img {
+    transition: transform 0.5s ease;
+}
+
+.module-card:hover img {
+    transform: scale(1.04);
+}
+
+.module-link {
+    transition: color 0.3s ease;
+}
+
+.module-link:hover {
+    color: #ffffff;
+}
+
+/* PROCESS SECTION REFINEMENT */
+
+.process-grid {
+    position: relative;
+}
+
+.process-item {
+    position: relative;
+    z-index: 1;
+}
+
+.process-item span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.process-item:hover span {
+    transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .process-item span {
+        transition: none;
+    }
+
+    .process-item:hover span {
+        transform: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .closing-section {
+        padding: 80px 6%;
+    }
+
+    .closing-section h2 {
+        font-size: clamp(2rem, 8vw, 2.8rem);
+        line-height: 1.2;
+    }
+
+    .closing-section p {
+        max-width: 100%;
+        line-height: 1.8;
+    }
+}
+
+/* =========================================
+   THE FIGHT CODE - GAME PLANS PAGE
+========================================= */
+
+/* PAGE FOUNDATION */
+
+body:has(#gameplan-results) {
+    margin: 0;
+    background: var(--fight-black);
+    color: var(--fight-white);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.7;
+}
+
+body:has(#gameplan-results) * {
+    box-sizing: border-box;
+}
+
+body:has(#gameplan-results) a {
+    text-decoration: none;
+}
+
+/* PAGE HEADER */
+
+body:has(#gameplan-results) > header {
+    padding: 85px 7% 65px;
+    text-align: center;
+    background:
+        linear-gradient(
+            rgba(8, 9, 12, 0.88),
+            rgba(8, 9, 12, 0.97)
+        ),
+        url("The Fight Code_ Combat Sports Collage.png")
+        center / cover no-repeat;
+    border-bottom: 1px solid rgba(230, 57, 70, 0.3);
+}
+
+body:has(#gameplan-results) > header h1 {
+    max-width: 1000px;
+    margin: 0 auto 20px;
+    color: var(--fight-white);
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: 1px;
+}
+
+body:has(#gameplan-results) > header p {
+    max-width: 750px;
+    margin: auto;
+    color: var(--fight-muted);
+    font-size: 1rem;
+}
+
+/* MAIN CONTENT */
+
+body:has(#gameplan-results) main {
+    width: min(1200px, 90%);
+    margin: 65px auto;
+}
+
+body:has(#gameplan-results) main > section {
+    margin-bottom: 45px;
+    padding: 35px;
+    background: var(--fight-dark);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 4px solid var(--fight-red);
+    border-radius: 6px;
+}
+
+body:has(#gameplan-results) main > section h2 {
+    margin: 0 0 30px;
+    color: var(--fight-white);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+/* FORMS */
+
+body:has(#gameplan-results) form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+body:has(#gameplan-results) form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--fight-white);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+body:has(#gameplan-results) form input,
+body:has(#gameplan-results) form select,
+body:has(#gameplan-results) form textarea {
+    width: 100%;
+    padding: 14px 15px;
+    background: #0b0d12;
+    color: var(--fight-white);
+    border: 1px solid #343944;
+    border-radius: 4px;
+    font: inherit;
+    font-size: 0.92rem;
+    transition: border-color 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+body:has(#gameplan-results) form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+body:has(#gameplan-results) form input::placeholder,
+body:has(#gameplan-results) form textarea::placeholder {
+    color: #777e8b;
+}
+
+body:has(#gameplan-results) form select {
+    cursor: pointer;
+}
+
+body:has(#gameplan-results) form input:focus,
+body:has(#gameplan-results) form select:focus,
+body:has(#gameplan-results) form textarea:focus {
+    outline: none;
+    border-color: var(--fight-red);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+}
+
+/* FIELDSETS */
+
+body:has(#gameplan-results) fieldset {
+    grid-column: 1 / -1;
+    min-width: 0;
+    margin: 10px 0;
+    padding: 25px;
+    border: 1px solid #343944;
+    border-radius: 5px;
+}
+
+body:has(#gameplan-results) legend {
+    padding: 0 10px;
+    color: var(--fight-red);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+/* DYNAMIC SPORT ASSESSMENT */
+
+#opponent-sport-assessment,
+#your-sport-assessment {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+#opponent-sport-assessment label,
+#your-sport-assessment label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* FOOTAGE LINKS */
+
+#opponent-footage-links-container,
+#your-footage-links-container {
+    display: grid;
+    gap: 15px;
+}
+
+.footage-input-group {
+    display: grid;
+    gap: 8px;
+}
+
+/* BUTTONS */
+
+body:has(#gameplan-results) form button,
+#generate-gameplan-btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+    padding: 14px 25px;
+    background: var(--fight-red);
+    color: white;
+    border: 1px solid var(--fight-red);
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+body:has(#gameplan-results) form button:hover,
+#generate-gameplan-btn:hover {
+    background: var(--fight-red-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(230, 57, 70, 0.2);
+}
+
+body:has(#gameplan-results) button:focus-visible {
+    outline: 3px solid var(--fight-blue);
+    outline-offset: 4px;
+}
+
+/* GAME PLAN RESULTS */
+
+#gameplan-results {
+    background:
+        linear-gradient(
+            145deg,
+            #171a21,
+            #0d0f14
+        );
+}
+
+#gameplan-output {
+    min-height: 120px;
+    margin-bottom: 25px;
+    padding: 25px;
+    background: #0b0d12;
+    border: 1px solid #343944;
+    border-radius: 5px;
+    overflow-wrap: anywhere;
+}
+
+#gameplan-output h3 {
+    margin: 30px 0 12px;
+    padding-bottom: 10px;
+    color: var(--fight-red);
+    font-size: 1.1rem;
+    font-weight: 900;
+    border-bottom: 1px solid #343944;
+}
+
+#gameplan-output p {
+    color: #c4c7ce;
+    margin: 10px 0;
+}
+
+#gameplan-output ul {
+    padding-left: 25px;
+    color: #c4c7ce;
+}
+
+#gameplan-output li {
+    margin-bottom: 8px;
+}
+
+/* TABLET RESPONSIVENESS */
+
+@media (max-width: 800px) {
+    body:has(#gameplan-results) main {
+        width: 92%;
+    }
+
+    body:has(#gameplan-results) main > section {
+        padding: 28px;
+    }
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 600px) {
+    body:has(#gameplan-results) > header {
+        padding: 65px 6% 50px;
+    }
+
+    body:has(#gameplan-results) main {
+        width: 92%;
+        margin: 35px auto;
+    }
+
+    body:has(#gameplan-results) main > section {
+        padding: 22px 17px;
+        margin-bottom: 28px;
+    }
+
+    body:has(#gameplan-results) form {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    #opponent-sport-assessment,
+    #your-sport-assessment {
+        grid-template-columns: 1fr;
+    }
+
+    body:has(#gameplan-results) fieldset {
+        padding: 18px 13px;
+    }
+
+    body:has(#gameplan-results) form button,
+    #generate-gameplan-btn {
         width: 100%;
+        justify-self: stretch;
     }
 
-    article img {
-        height: 200px;
+    #gameplan-output {
+        padding: 18px;
+    }
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+    body:has(#gameplan-results) form input,
+    body:has(#gameplan-results) form select,
+    body:has(#gameplan-results) form textarea,
+    body:has(#gameplan-results) button {
+        transition: none;
     }
 
-    footer {
-        margin-top: 3rem;
+    body:has(#gameplan-results) button:hover {
+        transform: none;
+    }
+}
+
+/* =========================================
+   THE FIGHT CODE - TRAINING PAGE
+========================================= */
+
+/* PAGE FOUNDATION */
+
+body:has(#training-results) {
+    margin: 0;
+    background: var(--fight-black);
+    color: var(--fight-white);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.7;
+}
+
+body:has(#training-results) * {
+    box-sizing: border-box;
+}
+
+body:has(#training-results) a {
+    text-decoration: none;
+}
+
+/* PAGE INTRODUCTION */
+
+body:has(#training-results) .page-introduction {
+    position: relative;
+    margin: 55px auto 50px;
+    padding: 85px 7%;
+    text-align: center;
+    background:
+        linear-gradient(
+            rgba(8, 9, 12, 0.88),
+            rgba(8, 9, 12, 0.95)
+        ),
+        url("The Fight Code_ Combat Sports Collage.png")
+        center / cover no-repeat;
+    border-top: 1px solid rgba(230, 57, 70, 0.35);
+    border-bottom: 1px solid rgba(230, 57, 70, 0.35);
+}
+
+body:has(#training-results) .page-introduction h1 {
+    max-width: 950px;
+    margin: 0 auto 20px;
+    color: var(--fight-white);
+    font-size: clamp(2rem, 5vw, 3.7rem);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: 1px;
+}
+
+body:has(#training-results) .page-introduction p {
+    max-width: 750px;
+    margin: auto;
+    color: #c4c7ce;
+    font-size: 1.05rem;
+}
+
+/* MAIN CONTENT */
+
+body:has(#training-results) main {
+    width: min(1100px, 90%);
+    margin: 0 auto 70px;
+}
+
+body:has(#training-results) main > section:not(.page-introduction) {
+    margin-bottom: 35px;
+    padding: 35px;
+    background: var(--fight-dark);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 4px solid var(--fight-red);
+    border-radius: 6px;
+}
+
+body:has(#training-results) main > section h2 {
+    margin: 0 0 25px;
+    color: var(--fight-white);
+    font-size: clamp(1.35rem, 3vw, 1.9rem);
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+/* TRAINING INFORMATION FORM */
+
+#training-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#training-form > label {
+    margin-top: 10px;
+    color: var(--fight-white);
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+#training-form input:not([type="checkbox"]),
+#training-form select,
+#training-form textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 13px 15px;
+    background: #0b0d12;
+    color: var(--fight-white);
+    border: 1px solid #343944;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    transition: border-color 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+#training-form textarea {
+    min-height: 135px;
+    resize: vertical;
+}
+
+#training-form input::placeholder,
+#training-form textarea::placeholder {
+    color: #777e8b;
+}
+
+#training-form select {
+    cursor: pointer;
+}
+
+#training-form input:focus,
+#training-form select:focus,
+#training-form textarea:focus {
+    outline: none;
+    border-color: var(--fight-red);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+}
+
+/* AVAILABLE TRAINING DAYS */
+
+#training-form fieldset {
+    min-width: 0;
+    margin: 22px 0;
+    padding: 25px;
+    background: #0d0f14;
+    border: 1px solid #343944;
+    border-radius: 5px;
+}
+
+#training-form legend {
+    padding: 0 10px;
+    color: var(--fight-red);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+#training-form fieldset p {
+    margin: 0 0 18px;
+    color: var(--fight-muted);
+    font-size: 0.9rem;
+}
+
+#training-form fieldset label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin: 7px 18px 7px 0;
+    padding: 9px 13px;
+    color: #d2d5dd;
+    background: #171a21;
+    border: 1px solid #343944;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.25s ease,
+                background 0.25s ease;
+}
+
+#training-form fieldset label:hover {
+    border-color: var(--fight-red);
+    background: #20232c;
+}
+
+#training-form input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    accent-color: var(--fight-red);
+    cursor: pointer;
+}
+
+/* BUTTONS */
+
+#training-form button,
+#generate-training-btn {
+    align-self: flex-start;
+    margin-top: 15px;
+    padding: 15px 25px;
+    background: var(--fight-red);
+    color: #ffffff;
+    border: 1px solid var(--fight-red);
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+#training-form button:hover,
+#generate-training-btn:hover {
+    background: var(--fight-red-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(230, 57, 70, 0.2);
+}
+
+#training-form button:focus-visible,
+#generate-training-btn:focus-visible {
+    outline: 3px solid var(--fight-blue);
+    outline-offset: 4px;
+}
+
+/* REGIMEN GENERATOR */
+
+#training-regimen-generator {
+    background:
+        linear-gradient(
+            145deg,
+            #171a21,
+            #0d0f14
+        );
+}
+
+#training-regimen-generator p {
+    max-width: 700px;
+    margin: 0 0 15px;
+    color: var(--fight-muted);
+}
+
+/* TRAINING REPORT */
+
+#training-results {
+    background:
+        linear-gradient(
+            145deg,
+            #171a21,
+            #0d0f14
+        );
+}
+
+#training-output {
+    min-height: 130px;
+    padding: 25px;
+    background: #0b0d12;
+    border: 1px solid #343944;
+    border-radius: 5px;
+    overflow-wrap: anywhere;
+}
+
+#training-output h3 {
+    margin: 30px 0 12px;
+    padding-bottom: 10px;
+    color: var(--fight-red);
+    font-size: 1.1rem;
+    font-weight: 900;
+    border-bottom: 1px solid #343944;
+}
+
+#training-output h3:first-child {
+    margin-top: 0;
+}
+
+#training-output p,
+#training-output li {
+    color: #c4c7ce;
+}
+
+#training-output p {
+    margin: 10px 0;
+}
+
+#training-output ul,
+#training-output ol {
+    padding-left: 25px;
+}
+
+#training-output li {
+    margin-bottom: 9px;
+}
+
+/* TABLET RESPONSIVENESS */
+
+@media (max-width: 800px) {
+    body:has(#training-results) main {
+        width: 92%;
+    }
+
+    body:has(#training-results) main > section:not(.page-introduction) {
+        padding: 28px;
+    }
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 600px) {
+    body:has(#training-results) .page-introduction {
+        margin: 35px auto;
+        padding: 65px 6%;
+    }
+
+    body:has(#training-results) .page-introduction p {
+        font-size: 0.95rem;
+    }
+
+    body:has(#training-results) main {
+        width: 92%;
+        margin-bottom: 45px;
+    }
+
+    body:has(#training-results) main > section:not(.page-introduction) {
+        padding: 22px 17px;
+        margin-bottom: 25px;
+    }
+
+    #training-form fieldset {
+        padding: 18px 13px;
+    }
+
+    #training-form fieldset label {
+        margin-right: 5px;
+        font-size: 0.88rem;
+    }
+
+    #training-form button,
+    #generate-training-btn {
+        width: 100%;
+        align-self: stretch;
+        padding: 14px 15px;
+    }
+
+    #training-output {
+        padding: 18px;
+    }
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+    #training-form input,
+    #training-form select,
+    #training-form textarea,
+    #training-form fieldset label,
+    #training-form button,
+    #generate-training-btn {
+        transition: none;
+    }
+
+    #training-form button:hover,
+    #generate-training-btn:hover {
+        transform: none;
+    }
+}
+
+/* =========================================
+   THE FIGHT CODE - NUTRITION PAGE
+========================================= */
+
+/* PAGE FOUNDATION */
+
+body:has(#nutrition-information) {
+    margin: 0;
+    background: var(--fight-black);
+    color: var(--fight-white);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.7;
+}
+
+body:has(#nutrition-information) * {
+    box-sizing: border-box;
+}
+
+/* PAGE HEADER */
+
+body:has(#nutrition-information) > header {
+    padding: 90px 7% 75px;
+    text-align: center;
+    background:
+        linear-gradient(
+            rgba(8, 9, 12, 0.85),
+            rgba(8, 9, 12, 0.96)
+        ),
+        url("The Fight Code_ Combat Sports Collage.png")
+        center / cover no-repeat;
+    border-top: 1px solid rgba(230, 57, 70, 0.3);
+    border-bottom: 1px solid rgba(230, 57, 70, 0.3);
+}
+
+body:has(#nutrition-information) > header h1 {
+    max-width: 900px;
+    margin: 0 auto 20px;
+    color: var(--fight-white);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: 1px;
+}
+
+body:has(#nutrition-information) > header p {
+    max-width: 760px;
+    margin: auto;
+    color: #c4c7ce;
+    font-size: 1.05rem;
+}
+
+/* MAIN CONTENT */
+
+body:has(#nutrition-information) main {
+    width: min(1100px, 90%);
+    margin: 65px auto;
+}
+
+body:has(#nutrition-information) main > section {
+    margin-bottom: 40px;
+    padding: 35px;
+    background: var(--fight-dark);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 4px solid var(--fight-red);
+    border-radius: 6px;
+}
+
+body:has(#nutrition-information) main > section h2 {
+    margin: 0 0 30px;
+    color: var(--fight-white);
+    font-size: clamp(1.35rem, 3vw, 1.9rem);
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+/* NUTRITION FORM */
+
+#nutrition-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+#nutrition-form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+#nutrition-form > div:nth-child(3),
+#nutrition-form > div:nth-child(4),
+#nutrition-form > div:nth-child(8),
+#nutrition-form > div:nth-child(9) {
+    grid-column: 1 / -1;
+}
+
+#nutrition-form label {
+    color: var(--fight-white);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+#nutrition-form input,
+#nutrition-form select,
+#nutrition-form textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 13px 15px;
+    background: #0b0d12;
+    color: var(--fight-white);
+    border: 1px solid #343944;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    transition: border-color 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+#nutrition-form textarea {
+    min-height: 115px;
+    resize: vertical;
+}
+
+#nutrition-form input::placeholder,
+#nutrition-form textarea::placeholder {
+    color: #777e8b;
+}
+
+#nutrition-form select {
+    cursor: pointer;
+}
+
+#nutrition-form input:focus,
+#nutrition-form select:focus,
+#nutrition-form textarea:focus {
+    outline: none;
+    border-color: var(--fight-red);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
+}
+
+/* SAVE BUTTON */
+
+#nutrition-form button {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 12px;
+    padding: 15px 25px;
+    background: var(--fight-red);
+    color: #ffffff;
+    border: 1px solid var(--fight-red);
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+#nutrition-form button:hover {
+    background: var(--fight-red-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(230, 57, 70, 0.2);
+}
+
+/* NUTRITION GENERATOR */
+
+#nutrition-plan-generator {
+    background:
+        linear-gradient(
+            145deg,
+            #171a21,
+            #0d0f14
+        );
+}
+
+#nutrition-plan-generator > p {
+    max-width: 800px;
+    color: var(--fight-muted);
+}
+
+#nutrition-plan-generator .nutrition-disclaimer {
+    margin: 25px 0;
+    padding: 18px 20px;
+    background: rgba(67, 140, 232, 0.08);
+    border-left: 3px solid var(--fight-blue);
+    color: #c4c7ce;
+    font-size: 0.88rem;
+}
+
+/* GENERATE BUTTON */
+
+#generate-nutrition-btn {
+    margin-top: 10px;
+    padding: 15px 25px;
+    background: var(--fight-red);
+    color: #ffffff;
+    border: 1px solid var(--fight-red);
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+#generate-nutrition-btn:hover {
+    background: var(--fight-red-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(230, 57, 70, 0.2);
+}
+
+/* NUTRITION RESULTS */
+
+#nutrition-results {
+    margin-top: 30px;
+}
+
+#nutrition-output {
+    min-height: 100px;
+    padding: 25px;
+    background: #0b0d12;
+    border: 1px solid #343944;
+    border-radius: 5px;
+    overflow-wrap: anywhere;
+}
+
+#nutrition-output h3 {
+    margin: 30px 0 12px;
+    padding-bottom: 10px;
+    color: var(--fight-red);
+    font-size: 1.1rem;
+    font-weight: 900;
+    border-bottom: 1px solid #343944;
+}
+
+#nutrition-output h3:first-child {
+    margin-top: 0;
+}
+
+#nutrition-output p,
+#nutrition-output li {
+    color: #c4c7ce;
+}
+
+#nutrition-output p {
+    margin: 10px 0;
+}
+
+#nutrition-output ul,
+#nutrition-output ol {
+    padding-left: 25px;
+}
+
+#nutrition-output li {
+    margin-bottom: 9px;
+}
+
+/* BUTTON ACCESSIBILITY */
+
+#nutrition-form button:focus-visible,
+#generate-nutrition-btn:focus-visible {
+    outline: 3px solid var(--fight-blue);
+    outline-offset: 4px;
+}
+
+/* TABLET RESPONSIVENESS */
+
+@media (max-width: 800px) {
+    body:has(#nutrition-information) main {
+        width: 92%;
+    }
+
+    body:has(#nutrition-information) main > section {
+        padding: 28px;
+    }
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 600px) {
+    body:has(#nutrition-information) > header {
+        padding: 65px 6% 55px;
+    }
+
+    body:has(#nutrition-information) > header p {
+        font-size: 0.95rem;
+    }
+
+    body:has(#nutrition-information) main {
+        width: 92%;
+        margin: 40px auto;
+    }
+
+    body:has(#nutrition-information) main > section {
+        padding: 22px 17px;
+        margin-bottom: 28px;
+    }
+
+    #nutrition-form {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    #nutrition-form > div {
+        grid-column: 1 / -1;
+    }
+
+    #nutrition-form button,
+    #generate-nutrition-btn {
+        width: 100%;
+        justify-self: stretch;
+        padding: 14px 15px;
+    }
+
+    #nutrition-output {
+        padding: 18px;
+    }
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+    #nutrition-form input,
+    #nutrition-form select,
+    #nutrition-form textarea,
+    #nutrition-form button,
+    #generate-nutrition-btn {
+        transition: none;
+    }
+
+    #nutrition-form button:hover,
+    #generate-nutrition-btn:hover {
+        transform: none;
     }
 }
 
 
+/* ==========================================
+   THE FIGHT CODE — RECOVERY GUIDES
+   ========================================== */
+
+body:has(#recovery-information) {
+    background: var(--fight-black);
+    color: var(--fight-white);
+}
+
+/* RECOVERY PAGE HEADER */
+
+body:has(#recovery-information) > header {
+    max-width: 1100px;
+    margin: 55px auto 40px;
+    padding: 55px 35px;
+    text-align: center;
+    background: linear-gradient(
+        135deg,
+        #102c32,
+        #111a20,
+        #111318
+    );
+    border: 1px solid rgba(67, 140, 232, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+body:has(#recovery-information) > header h1 {
+    margin-bottom: 18px;
+    color: #72d6c5;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    letter-spacing: 2px;
+    font-weight: 900;
+}
+
+body:has(#recovery-information) > header p {
+    max-width: 750px;
+    margin: 0 auto;
+    color: var(--fight-muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* MAIN CONTENT */
+
+body:has(#recovery-information) main {
+    width: min(1100px, 92%);
+    margin: 0 auto 70px;
+}
+
+body:has(#recovery-information) main section {
+    margin-bottom: 45px;
+    padding: 35px;
+    background: var(--fight-card);
+    border: 1px solid rgba(114, 214, 197, 0.16);
+    border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+body:has(#recovery-information) main section h2 {
+    margin-bottom: 25px;
+    color: #72d6c5;
+    font-size: clamp(1.35rem, 3vw, 1.8rem);
+    letter-spacing: 1px;
+    line-height: 1.4;
+}
+
+/* RECOVERY FORM */
+
+#recovery-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+#recovery-form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+/* Full-width recovery description fields */
+
+#recovery-form > div:has(textarea) {
+    grid-column: 1 / -1;
+}
+
+#recovery-form label {
+    color: var(--fight-white);
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+#recovery-form input,
+#recovery-form select,
+#recovery-form textarea {
+    width: 100%;
+    padding: 14px 15px;
+    background: #0d1016;
+    color: var(--fight-white);
+    border: 1px solid #343b47;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#recovery-form textarea {
+    min-height: 105px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+#recovery-form input::placeholder,
+#recovery-form textarea::placeholder {
+    color: #858c98;
+}
+
+#recovery-form input:focus,
+#recovery-form select:focus,
+#recovery-form textarea:focus {
+    outline: none;
+    border-color: #72d6c5;
+    box-shadow: 0 0 0 3px rgba(114, 214, 197, 0.14);
+}
+
+#recovery-form small {
+    color: #e5b66d;
+    font-size: 0.82rem;
+    line-height: 1.6;
+}
+
+/* FORM BUTTON */
+
+#recovery-form button {
+    grid-column: 1 / -1;
+    justify-self: start;
+    padding: 14px 25px;
+    background: #72d6c5;
+    color: #081311;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#recovery-form button:hover {
+    background: #91eadb;
+    transform: translateY(-2px);
+}
+
+/* RECOVERY GUIDE GENERATOR */
+
+#recovery-guide-generator {
+    text-align: center;
+    background: linear-gradient(
+        145deg,
+        #171f24,
+        #171a21
+    );
+}
+
+#recovery-guide-generator > p {
+    max-width: 720px;
+    margin: 0 auto 25px;
+    color: var(--fight-muted);
+    line-height: 1.8;
+}
+
+#generate-recovery-btn {
+    padding: 15px 28px;
+    background: var(--fight-blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#generate-recovery-btn:hover {
+    background: #65a6f5;
+    transform: translateY(-2px);
+}
+
+/* GENERATED RECOVERY REPORT */
+
+#recovery-results {
+    margin-top: 30px;
+    text-align: left;
+}
+
+#recovery-output {
+    color: var(--fight-white);
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+#recovery-output:empty {
+    display: none;
+}
+
+#recovery-output h3 {
+    margin: 28px 0 12px;
+    padding-bottom: 9px;
+    color: #72d6c5;
+    border-bottom: 1px solid rgba(114, 214, 197, 0.25);
+    font-size: 1.2rem;
+}
+
+#recovery-output h4 {
+    margin: 20px 0 8px;
+    color: #a8e9df;
+    font-size: 1.05rem;
+}
+
+#recovery-output p {
+    margin: 10px 0;
+    color: #d2d6dc;
+    line-height: 1.8;
+}
+
+#recovery-output ul,
+#recovery-output ol {
+    margin: 12px 0 20px;
+    padding-left: 25px;
+    color: #d2d6dc;
+}
+
+#recovery-output li {
+    margin-bottom: 9px;
+    padding-left: 4px;
+}
+
+#recovery-output strong {
+    color: #ffffff;
+}
+
+/* KEYBOARD ACCESSIBILITY */
+
+#recovery-form button:focus-visible,
+#generate-recovery-btn:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 4px;
+}
+
+/* TABLET */
+
+@media (max-width: 768px) {
+
+    body:has(#recovery-information) > header {
+        margin: 35px auto;
+        padding: 40px 25px;
+    }
+
+    body:has(#recovery-information) main section {
+        padding: 25px;
+    }
+
+    #recovery-form {
+        gap: 20px;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 560px) {
+
+    body:has(#recovery-information) > header {
+        margin: 25px auto;
+        padding: 32px 20px;
+    }
+
+    body:has(#recovery-information) > header p {
+        font-size: 0.95rem;
+    }
+
+    body:has(#recovery-information) main {
+        width: 94%;
+    }
+
+    body:has(#recovery-information) main section {
+        padding: 20px 16px;
+        margin-bottom: 28px;
+    }
+
+    #recovery-form {
+        grid-template-columns: 1fr;
+    }
+
+    #recovery-form > div,
+    #recovery-form > div:has(textarea),
+    #recovery-form button {
+        grid-column: 1;
+    }
+
+    #recovery-form button,
+    #generate-recovery-btn {
+        width: 100%;
+    }
+
+    #recovery-output h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
 
-    html {
-        scroll-behavior: auto;
+    #recovery-form input,
+    #recovery-form select,
+    #recovery-form textarea,
+    #recovery-form button,
+    #generate-recovery-btn {
+        transition: none;
     }
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
+    #recovery-form button:hover,
+    #generate-recovery-btn:hover {
+        transform: none;
     }
 }

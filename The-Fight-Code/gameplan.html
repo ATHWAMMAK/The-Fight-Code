@@ -8,24 +8,50 @@
     <title>The Fight Code | Customized Fighting Game Plans</title>
 
     <link rel="stylesheet" href="style.css">
-    <script src="../gameplan.js" defer></script>
+    <script src="gameplan.js" defer></script>
 </head>
 
 <body>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="gameplan.html" aria-current="page">Customized Fighting Game Plans</a>
-        <a href="traingram.html">Curated Training Regimens</a>
-        <a href="nutrition.html">Nutrition Plans</a>
-        <a href="recovery.html">Recovery Guides</a>
-    </nav>
+    <!-- NAVIGATION -->
+    <nav class="main-nav">
+
+    <a href="index.html" class="brand">
+        THE FIGHT CODE<span>.</span>
+    </a>
+
+    <button
+        class="menu-toggle"
+        id="menu-toggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="nav-links"
+        type="button"
+    >
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="nav-links" id="nav-links">
+
+        <a href="index.html" >Home</a>
+        <a href="gameplan.html" aria-current="page">Game Plans</a>
+        <a href="traingram.html">Training</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="recovery.html">Recovery</a>
+
+    </div>
+
+</nav>
+
+
 
     <header>
         <h1>CUSTOMIZED FIGHTING GAME PLANS</h1>
 
         <p>
-            This is where the fights are strategized into victory.
+            This is where the fights are analyzed and transformed into victory.
             Every detail provided is designed to return a well-made,
             detail-oriented and meticulously prepared game-plan that
             will help you prepare for the fight that awaits you.
@@ -166,6 +192,11 @@
                         + Add Another Link
                     </button>
 
+                    <p class="form-note">
+    Video links are saved as reference material.
+    Analyze the footage and enter your observations
+    in the fighter assessment fields.
+</p>
                 </fieldset>
 
                 <button type="submit">Save Details</button>
@@ -304,6 +335,12 @@
                         + Add Another Link
                     </button>
 
+                    <p class="form-note">
+    Video links are saved as reference material.
+    Analyze the footage and enter your observations
+    in the fighter assessment fields.
+</p>
+
                 </fieldset>
 
                 <button type="submit">Save Details</button>
@@ -333,14 +370,17 @@
 
     </main>
 
+    <!-- FOOTER -->
+    <footer class="site-footer">
 
-    <footer>
+        <h3>THE FIGHT CODE<span>.</span></h3>
 
-        <h4>MADE BY FIGHTERS, MADE FOR FIGHTERS, INHABITED BY FIGHTERS</h4>
+        <p>MADE BY FIGHTERS. MADE FOR FIGHTERS.</p>
 
-        <p>&copy; 2026 The Fight Code, all rights reserved</p>
+        <p> &copy; <span id="current-year"></span> THE FIGHT CODE. ALL RIGHTS RESERVED.</p>
 
     </footer>
+
 
 </body>
 
