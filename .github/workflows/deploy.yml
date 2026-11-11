@@ -20,6 +20,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
 
     steps:
@@ -29,12 +30,16 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      - name: Prepare website files
+        run: |
+          mkdir -p public
+          cp -R The-Fight-Code/. public/
+
       - name: Upload website files
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./The-Fight-Code
+          path: ./public
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
